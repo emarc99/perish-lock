@@ -1,0 +1,1435 @@
+[00:02] All right, welcome, welcome everyone. My
+[00:04] name is Darlles aka Dar Developer. I'm
+[00:07] the developer marketing manager here at
+[00:08] Devpost. And for anyone who's newer to
+[00:10] us, Devpost's mission is to inspire
+[00:13] developers, creatives, and builders to
+[00:15] build great software. So, we're creating
+[00:17] a world where everyone who wants to
+[00:19] improve their craft or be inspired to
+[00:21] build can come to DevPost for that
+[00:23] inspiration. To that end, we power most
+[00:25] of the world's software hackathons on
+[00:27] our platform. Quick context in case you
+[00:30] are just getting oriented. The agents
+[00:32] for humans hackathon is focused on
+[00:34] building practical functional AI agents
+[00:36] with submissions open through I believe
+[00:38] September 14th. Uh we have like almost a
+[00:42] week a little bit less than a week left.
+[00:44] So framing for today's workshop. This
+[00:46] workshop is called agent speedrun. We're
+[00:48] going to ideulate we're going to build
+[00:50] we're going to validate and we're going
+[00:51] to deploy. So, I'm really excited to
+[00:54] introduce our speaker, our presenter for
+[00:56] today, senior developer advocate at AWS,
+[00:59] Sandy. Sandy, please take it away.
+[01:05] Thank you so much for having me. I am so
+[01:08] stoked to be here. Um, if you can't
+[01:11] tell, I have a really bad cold [snorts]
+[01:14] and cough and high fever and I've got
+[01:16] the works going on. But I am so stoked
+[01:19] to be here and I'm so excited to be
+[01:21] doing this with all of you and um
+[01:23] discussing geeking out over strands and
+[01:25] agent cole and what I want to do today
+[01:29] is get everyone and so it's it's one
+[01:32] thing to be able to talk about agents
+[01:34] and say oh I like let's build agents
+[01:36] that that help us out but it's one thing
+[01:40] to be able to vibe code an agentic
+[01:42] system that works really well in a demo
+[01:46] but there There are so many cool
+[01:48] techniques that you can use to ensure
+[01:51] that your agentic system works really
+[01:54] well in production and that you have
+[01:56] control over the systems that you're
+[01:58] building. Right? You need to have
+[02:00] deterministic control. That is where the
+[02:03] power of agents lies in. Right? You
+[02:05] don't want the agent to be able to do
+[02:07] things on its own without asking for
+[02:10] validation, without asking for the right
+[02:12] feedback. You don't want it to take
+[02:14] action on its own and you want to be
+[02:15] able to control the outcome. So today I
+[02:18] want to talk and give all of you an um
+[02:21] insights into how we can start thinking
+[02:24] about building agents that way. And um
+[02:27] what I'm going to be using today for
+[02:29] that is what we call workshop studio
+[02:32] from AWS. And this is really cool
+[02:35] because this is super super hands-on.
+[02:37] I'm going to be coding with you guys and
+[02:40] you can also code along with me and you
+[02:42] can use it post the workshop too. Um the
+[02:45] workshop is super detailed. the like
+[02:46] about seven eight modules. So that's a
+[02:48] lot. There's no way we're going to get
+[02:50] through all of that. And that's totally
+[02:51] fine. Very intentionally done because I
+[02:54] would want you to use it for the next 2
+[02:56] three days um as you're building and use
+[02:59] this as a resource so you can build
+[03:01] better easily and to you know reduce
+[03:04] bottlenecks. Um and so it's been
+[03:07] intentionally made. Ideally, if we get
+[03:10] through like when I've done these
+[03:12] workshops in the past, I've never been
+[03:14] able to get through more than three to
+[03:16] four modules and that's totally okay.
+[03:18] Um, we can take it at the pace that you
+[03:21] want to take it in. I love taking
+[03:23] questions as we do this. So, um, feel
+[03:26] free to put your add your questions in
+[03:28] the chat. Um, I don't think I'd be
+[03:30] following Discord because I'd have to be
+[03:32] changing screens too much, but I would
+[03:33] love if um, anyone like if you're
+[03:35] putting it on the webinar chat or in the
+[03:37] Q&A panel and I'd love to address it and
+[03:40] we can go at the pace that you want.
+[03:42] Hey, is everyone with me or are we
+[03:43] excited to get started?
+[03:48] Yay. Okay, I see some hearts and I see
+[03:50] some celebratory um, emojis and um,
+[03:54] thumbs ups and good. Awesome. Let's get
+[03:56] started.
+[03:57] So my name is Sandy. I am a senior
+[04:00] developer advocate uh at AWS. I come
+[04:04] with about eightish years of experience
+[04:07] with applied AI research. I um I used to
+[04:11] work at I worked at Fidelity Investments
+[04:13] Warner Brothers and I had an earlier
+[04:15] stint at Amazon and now I'm again back
+[04:17] with AWS and so it's been great. Um, but
+[04:22] now with this specific role, with the
+[04:25] way with the advent of generative AI and
+[04:28] with agents, it really lowers the bar to
+[04:32] building, right? There are two types of
+[04:34] agents that we currently talk about. We
+[04:37] talk about um agents that you use and
+[04:41] then the agents that you build. And I
+[04:44] think it's super super important to get
+[04:46] this to clarify this before we dive in.
+[04:49] Um so the first thing about the agents
+[04:52] that and no I'm not sharing my screen
+[04:54] yet. This is just making sure everyone's
+[04:56] on the same page before we dive straight
+[04:58] in. And so the difference between the
+[05:01] agents that you use and the agents that
+[05:03] you build with the agents that you use
+[05:05] that's like your coding assistance
+[05:07] that's like chat GPT that's like cloud
+[05:10] code like your cursor your codeex those
+[05:12] are systems a with which have agents
+[05:16] inbuilt in them and we use those systems
+[05:20] to get our jobs done right so we use
+[05:23] them to help us code we use them to ask
+[05:27] to get our questions answered. We ask
+[05:30] them to schedule tasks and to do our
+[05:32] tasks for us. We use and utilize agents
+[05:36] to be to make our lives easier. And so
+[05:39] those are agents that we directly use.
+[05:43] But then there are the agents that you
+[05:45] build, right? And that is the goal of
+[05:48] the hackathon today. The goal of the
+[05:50] hackathon is for us to be able to build
+[05:54] our own agentic systems and host them,
+[05:58] put them in a production, host them so
+[06:01] that we can use them later on for
+[06:04] whatever need, right? If you have your
+[06:07] customers and if you have your clients
+[06:09] and if you have other people who need to
+[06:11] be using your agentic systems, you would
+[06:14] then work from the primitives. You would
+[06:16] then code up an egentic system and then
+[06:20] hand it off, put put it in a deployment
+[06:22] and then have your end user use it. And
+[06:25] so let's and so we need to be super
+[06:28] clear about it because there's always a
+[06:30] question of oh but what is the point of
+[06:33] using um strands or lang chain or lang
+[06:36] graph because because I can get it from
+[06:38] chat gpt or I can use cloud code to do
+[06:40] it for me because cloud code will help
+[06:42] you write code. It's going to help you
+[06:45] build the systems that you want and you
+[06:47] can use agents to write agents and
+[06:49] that's usually what we do when we write
+[06:51] code. But the goal is to build agents.
+[06:54] And so that said, I'm going to dive
+[06:57] straight in and I'm going to start
+[06:58] sharing my screen and let me know if you
+[07:01] can um see my screen. Um
+[07:07] [snorts]
+[07:07] okay. Is my screen visible?
+[07:12] It is. Okay, thank you. So, my name is
+[07:15] Sandy and you can connect with me on
+[07:18] LinkedIn. I've got my LinkedIn um ID
+[07:21] there and um also full disclosure um
+[07:26] yeah uh we there is no way we're going
+[07:29] to get through the whole thing but that
+[07:30] is totally fine. I want you to be able
+[07:33] to use it on like post this this discord
+[07:37] uh post this workshop.
+[07:39] So, uh to the next slide. What is
+[07:42] Strand's agent? Strands agents is an
+[07:46] open- source agent harness SDK that AWS
+[07:50] built and it's fully open source which
+[07:52] means you don't have to use it on AWS.
+[07:55] You can use it, you can host it
+[07:56] anywhere. Um, and fun fact is we
+[07:59] actually built it three years ago before
+[08:01] agents were actually a thing and we were
+[08:03] using it internally, but it was so cool
+[08:06] and so powerful that we said, you know
+[08:08] what, we need to share this with the
+[08:09] world and let's open source it because
+[08:11] why not? And so this is us giving back
+[08:13] to the community and wanting everyone to
+[08:16] use it, adopt adopt it and build their
+[08:20] own systems with it. And so the thing
+[08:22] with trans agents is you bring your own
+[08:25] model. There is no inbuilt model that
+[08:28] this runs with. Yes, it works really
+[08:30] well natively with AWS and you can use
+[08:33] it with bedrock models, but you don't
+[08:35] have to. Uh your local models, your
+[08:37] openweight models, um any model that you
+[08:40] of your choice, you can use with this.
+[08:43] Um, and it's super lightweight, which
+[08:46] means the other cool part is because
+[08:48] you're building with a harness
+[08:50] framework, tomorrow if there's the next
+[08:53] new model, the next best model comes
+[08:55] out, you will be able to directly plug
+[08:58] that in here and it's going to work.
+[09:01] Your code is going to be f forward
+[09:04] friendly. You can use whichever new
+[09:07] model and your code will still work. You
+[09:09] don't have to redo your entire
+[09:10] architecture. You don't have to redo
+[09:11] your entire system prompt. You don't
+[09:13] have to change those things. It will
+[09:15] still work. So the other cool thing
+[09:17] about this is if you're debating between
+[09:19] different models, if you're trying like
+[09:21] I don't know a llama 8 billion model and
+[09:24] like a smaller 3 billion model, if
+[09:26] you're trying like with different types
+[09:27] of models, you can play along, right?
+[09:30] You can just swap it out, see which
+[09:32] gives the better performance because
+[09:34] sure there is a ferrari, but do we all
+[09:36] need ferraris to get our day-to-day
+[09:38] tasks done? No, we don't. So we could
+[09:40] use just a we could start off with a
+[09:42] really simple lightweight model and
+[09:44] build the framework around it which
+[09:47] gives us our boundaries. That's what
+[09:49] gives us determinism as we build these
+[09:51] systems and then take it from there. So
+[09:53] yes, it's with very very few lines of
+[09:56] code. It's it's very model it's model
+[09:58] agnostic and it's got multi- aent
+[10:01] primitives which means you can stack
+[10:03] different agentic um different agents on
+[10:05] top of each other in different ways and
+[10:07] you can build a more complex system um
+[10:10] and it's fully fully open source. So
+[10:12] what that means is you can run it
+[10:14] locally, you can host it um on your
+[10:17] preferred choice of cloud um not just
+[10:20] AWS,
+[10:22] you can host it anywhere. And that is
+[10:25] part one. Let's build learn to build
+[10:28] with stand agents. Part two. Um and so
+[10:30] again this is just all of the different
+[10:32] u the different models that it supports.
+[10:35] Some of the examples of the models uh
+[10:38] that it supports. Um and then the second
+[10:41] part of it is where we're going to be
+[10:43] running it. Um you can run it on any
+[10:46] AWS. You you don't have to but in this
+[10:49] workshop we will be using um agent core
+[10:53] uh bedrock agent core which is a managed
+[10:55] runtime service. It's specifically built
+[10:58] for agents and you can let agent core do
+[11:03] all of the heavy lifting work for you.
+[11:05] You can do it. You can again you can
+[11:07] just create shell spin up your own EC2
+[11:10] instance or EKS or Fargate or you know
+[11:12] AWS Lambda you can run it anywhere but
+[11:16] agent co runtime comes with its own
+[11:19] advantages which is why also in as part
+[11:23] of the workshop we want to give you
+[11:24] access to this and help you run it on
+[11:27] agent co run on time and so let's talk a
+[11:29] little bit more about agent co runtime
+[11:32] uh what is bedrock agent co right um
+[11:35] this is your one-stop shop for
+[11:37] deployment.
+[11:39] You can all it takes is less about five
+[11:42] lines of code. That's all it takes to
+[11:44] deploy your code. Um if it's sitting
+[11:46] locally, five lines of code and you put
+[11:48] it in a production. That's literally all
+[11:50] it takes. And so what this adds is all
+[11:53] of the other features that you're that
+[11:55] you need for your agent to be reliable
+[11:58] in production. [cough] It gives you
+[12:00] memory. It gives you gateway. It gives
+[12:03] you observability. It gives you um IM
+[12:07] and permissions identity, right? It
+[12:09] gives you payments. It gives you all of
+[12:12] the other aspects. It gives you a way to
+[12:14] build a multi-tenant architecture in
+[12:16] case you're building for multiple
+[12:17] clients. And so this is a type of a of a
+[12:22] platform harness that allows you to add
+[12:24] more capabilities to your agents and
+[12:27] make it scalable and reliable in
+[12:29] production. And agent coal also supports
+[12:33] any model. It's it works great with
+[12:36] strands. And today we're going to be
+[12:37] seeing how it works with strands, but
+[12:39] agent core by itself can also use
+[12:41] langraph and cua and llama index and
+[12:43] again your f your preferred harness of
+[12:46] choice. Um and so both of them work
+[12:49] really well with each other, but they
+[12:51] also work really well with other
+[12:52] frameworks and other platforms. And so
+[12:56] why do we want to use runtime today? you
+[13:00] get the most important uh part to me,
+[13:03] the part that matters to me is security.
+[13:05] Um we need to be able to ensure that the
+[13:09] data that you're sending into your
+[13:10] agents, that the data that it's
+[13:12] receiving, the data that it's sending
+[13:14] back out, all of that has enterprise
+[13:17] level security. That is the most
+[13:19] important part. We need to be able to
+[13:21] give it access to microVMs, VPCs,
+[13:24] excuse me, a private link. That I think
+[13:27] is super super important. and you can do
+[13:30] it within seconds. All it takes is five
+[13:32] lines of code and you can send it to
+[13:34] runtime. Now, um how again these are all
+[13:38] of the different modules that we're
+[13:39] going to be using. I'm also going to be
+[13:41] looking at the chat. Am I using a free
+[13:43] account? I will be giving all of you
+[13:45] access to the workshop account in the
+[13:48] next slide. Um and I will tell you how
+[13:50] to start doing it. Um I'm also reading
+[13:52] your uh comments as we speak. Um,
+[13:57] thank you for this shout out. Um, I
+[14:00] thank you for attending and checking out
+[14:02] strands and please give feedback once
+[14:04] you um once you test it out.
+[14:08] Um, and so these are all of the
+[14:10] different modules that are there.
+[14:12] Ideally, I would want to get to the
+[14:14] deployment phase, but I don't think
+[14:16] we'll end up getting there, but just to,
+[14:18] you know, just to be just take it at the
+[14:20] pace that you want to take it in. But
+[14:22] we'll see. We'll see how far we can get
+[14:24] and you will still have access to the
+[14:26] workshop post this hour. So, how do we
+[14:30] get started? Um, we are going to be
+[14:33] using workshop studio accounts and this
+[14:36] is fully free. You will not be charged
+[14:39] for this. It gives you access to a
+[14:41] Jupyter Jupyter notebook environment
+[14:44] that you can use, but it also gives you
+[14:47] access to all the theory and the
+[14:49] material behind strands and behind
+[14:51] building agentic systems.
+[14:54] And so this is going to be valid for
+[14:56] about 72 hours from today. So
+[14:59] [clears throat] um I'm going to wait for
+[15:01] everyone to join. This is the link. I
+[15:04] want everyone to click on this specific
+[15:06] link. I can put it in the chat. Hang on.
+[15:08] I'm going to put it in the chat.
+[15:09] Hopefully, it's already there on the
+[15:12] chat. Um,
+[15:14] I'd love to see thumbs up when everyone
+[15:17] sees the screen in front of me. And when
+[15:20] you are at this screen, please do not
+[15:23] log in with Amazon. Do not log in as an
+[15:26] Amazon employee. Please give it a new
+[15:29] email address and then get your onetime
+[15:31] password. That is what will make this
+[15:33] free. We don't want you to be charged to
+[15:35] your AWS accounts if you are using AWS,
+[15:39] you know, outside of this. Um, we don't
+[15:41] want you to be charged. So, please start
+[15:44] off with emailing uh choosing this email
+[15:47] onetime password option. Um, and please
+[15:51] uh feel free to react um on the screen
+[15:54] so I can see a bunch of thumbs ups and
+[15:56] then I will continue on to the next
+[15:59] slide.
+[16:01] I've got about four people who've
+[16:03] reacted. Which we email ID? We need to
+[16:05] use personal or work. Please use your
+[16:07] personal if um I mean email of your
+[16:09] choice, whichever you want. Um I would
+[16:11] just go with like your personal email
+[16:13] ID. Do do not use an email ID that is
+[16:16] associated with an existing AWS account.
+[16:19] Uh we don't want you to accidentally
+[16:22] uh do anything with it.
+[16:25] So um yeah.
+[16:30] Okay. So,
+[16:32] no, you don't need to have free tie
+[16:33] account. You don't need to have
+[16:34] anything. You don't need to like this is
+[16:36] this is just fully you don't need to do
+[16:37] all of that.
+[16:41] Okay. So, next it's going to ask you to
+[16:43] enter your email address and it's going
+[16:45] to send you your passcode.
+[16:48] So, once Oh, thank okay. Harish has
+[16:50] joined. Amazing. Muhammad is joined.
+[16:52] Amazing. So, it's going to ask you, it's
+[16:54] going to send you a passcode and then
+[16:56] you have to type your nine-digit
+[16:57] passcode.
+[17:01] Good. I see a bunch of joins. And then
+[17:04] if you hit terms and conditions, you
+[17:06] just have to be able to see join event.
+[17:12] Cool. I'm going to give it just two more
+[17:13] minutes. This is the part where most
+[17:15] people get stuck. So, I'm going to just
+[17:16] give it two more minutes.
+[17:22] Okay. And again, fine. Just if you want
+[17:26] to take a even if you're not able to run
+[17:27] it with me, please just um copy this URL
+[17:31] so you can run it at your own. Yes, it's
+[17:34] totally okay to join with it's totally
+[17:35] okay to join with your school email or
+[17:37] your work email or whichever email. Just
+[17:39] don't do it with with an email that
+[17:41] already has an account in it just to be
+[17:42] on the safe side.
+[17:45] Okay, awesome. So now if if all of you
+[17:49] have joined um you should be able to see
+[17:54] this screen right here right um you
+[17:58] should be able to join and it's going to
+[18:00] take you to this website
+[18:02] and on this website is everyone with me
+[18:04] I'm hoping uh how do I move the chat the
+[18:08] problem is I can't seem to move the chat
+[18:09] to this page okay um
+[18:13] give me just Oh good I have the chat on
+[18:15] this page Now, um I'm guessing everyone
+[18:17] can see this page with me. This shows
+[18:19] you that this event ends in 2 days, 23
+[18:22] hours, and 7 minutes. That's how long
+[18:24] you have to play with this code. I will
+[18:26] also share the final workshop
+[18:28] repository. You know what? Actually,
+[18:29] let's do that. Please take a screenshot
+[18:30] of this if you want right now. Um so, so
+[18:34] that you have access to this repository
+[18:36] even after 72 hours. Even once this
+[18:39] workshop hands-on workshop is done, you
+[18:42] can still use the GitHub uh repository
+[18:44] and you can check it out. You can check
+[18:46] out Strand's agents. You can check out
+[18:48] the repository. You can read more about
+[18:49] agent core.
+[18:51] Um please take um please take a
+[18:54] screenshot of this.
+[19:02] Perfect. Okay,
+[19:05] now onwards and upwards. H I don't think
+[19:09] you will get any certificate for this.
+[19:11] Um but you can do AWS certifications for
+[19:15] this. This is this doesn't give you
+[19:16] access to a certification unfortunately
+[19:18] because there are no question answers
+[19:20] and there's no quizzing for this, right?
+[19:22] This is just something a workshop that
+[19:23] you're learning. So um it's asking for
+[19:27] event code. It shouldn't actually ask
+[19:29] you for an event code or access code. If
+[19:31] you just go to the link over here, it
+[19:33] should directly take you to the access
+[19:35] code should be inserted. you shouldn't
+[19:37] have to type in an event code. Um, but
+[19:40] we'll work on that. Um,
+[19:43] yes, the event ends in 2 days because I
+[19:45] want you to be able to use it after
+[19:47] that. Okay, awesome. Um, now I there are
+[19:51] two things that you need to keep in
+[19:53] mind. The first is the code editor URL.
+[19:56] Open this in a new tab and that will
+[19:59] give you your Jupyter notebook. So,
+[20:02] scroll down to the bottom of the page,
+[20:04] the code editor URL. Open this in a new
+[20:06] tab. This should give you access to the
+[20:08] workshops and the diff the different
+[20:11] codes that are there in the workshops.
+[20:13] And when if you click on your left-hand
+[20:15] panel, you will see what the workshop is
+[20:18] actually about. So today we are going to
+[20:21] be building a customer service agent um
+[20:25] step by step using strands. And so we're
+[20:28] going to try and get this customer uh
+[20:30] support agent to answer questions for us
+[20:33] and we will build it methodologically
+[20:36] and we will keep adding techniques and
+[20:39] tools and layers to it to build trust
+[20:41] and reliability.
+[20:43] That's what we're doing today and you
+[20:46] can follow along with me over here. So
+[20:48] the first thing that we need to do is
+[20:50] set up. I'm sure all of this is already
+[20:52] installed. You don't have to do any of
+[20:54] this on this workshop. But if you are
+[20:56] going to GitHub the repository and doing
+[20:58] it, just make sure you have all of these
+[21:00] packages installed. For us, in the case
+[21:03] of the workshop, everything's been
+[21:04] pre-installed for you. So you can start
+[21:06] straight off. Um, so let's get started
+[21:10] to the first module.
+[21:13] What is an agent, right? What is an
+[21:15] agent? What makes it different? What
+[21:17] makes it different from a just an LLM is
+[21:20] the fact that it has a reasoning loop.
+[21:23] What that means is when you ask a
+[21:25] question to an agent, it's going to use
+[21:28] the reasoning part of the LLM and it's
+[21:30] going to figure out for the question
+[21:31] that's being asked, what is the right
+[21:33] type of answer and what tools can I use
+[21:37] to get that answer. And so what it's
+[21:39] going to do is it's going to call a
+[21:41] particular tool, the tool of your
+[21:43] choice, the right tool, and then it's
+[21:45] going to get the answer from that tool.
+[21:47] It's going to run that tool, get the
+[21:49] answer from that tool. that gets fed
+[21:51] back to your LLM and then your LLM uses
+[21:54] the answer from that tool and it again
+[21:56] uses your input and your context and
+[21:59] together it generates an answer and
+[22:01] that's how you get a response. And this
+[22:04] this reasoning loop is what makes agents
+[22:08] so powerful. And so the first thing
+[22:11] we're going to do and so this shows you
+[22:12] the code where you can start doing it.
+[22:14] And so it's super super simple. All it
+[22:16] takes is one line of code to get
+[22:18] started, right? All you need is just one
+[22:21] line of agent equals agent tools and
+[22:23] system prompt. So [clears throat]
+[22:26] as we dive straight into it, um, open up
+[22:29] your workshop over here. Open up samples
+[22:32] and under samples, open the very first
+[22:34] one, which is agent loop tools. I'm
+[22:36] going to keep my chat open in case there
+[22:38] are more questions.
+[22:41] Okay. Um,
+[22:43] great. Um so agent loop tools go to the
+[22:48] very first module over here you will see
+[22:50] it loading and what you will have to do
+[22:53] is you probably if you try to hit run
+[22:56] it's going to ask you to add in the
+[22:58] environment because the environment is
+[23:00] missing. So please go here and add this
+[23:03] environment. Uh when you select kernel
+[23:06] Python environments and you it'll tell
+[23:07] you how to choose your Python 3.13 or
+[23:10] higher and please use that kernel in
+[23:13] every module. It's going to keep asking
+[23:14] you and then when you hit run it should
+[23:17] start running and it will install all of
+[23:19] your dependencies. Right? So the first
+[23:21] part is we want to give it tools. Now um
+[23:25] this is just all of the code. This is
+[23:27] just all of the models that are already
+[23:29] there. Now uh what we want to start off
+[23:32] with is the database. What we're working
+[23:34] with here is we have two customers and
+[23:38] then this is basically a service agent
+[23:40] for an e-commerce website and you're
+[23:43] buying uh you've ended up buying some um
+[23:46] you've made purchases from that website.
+[23:48] So this first customer has ordered two
+[23:51] things and the second customer has
+[23:52] ordered another item and so these are
+[23:55] where the tools have been defined. So
+[23:57] tools have been previously defined for
+[23:59] you. This is just lookup customer and
+[24:01] this is get order history so that they
+[24:03] can get the order and this is like order
+[24:06] refund right so we've got these three
+[24:08] tools that we've written and then we
+[24:09] just run it. So now when you want to run
+[24:12] your agent, what you have to do is just
+[24:15] give it a very simple prompt and say,
+[24:17] "Hey, you are a helpful customer service
+[24:20] agent on an online electronic store."
+[24:23] And all you need is this one line of
+[24:26] code. Agent equals agent and call the
+[24:30] three tools that are there. Look up
+[24:32] customer, get order history, process
+[24:35] refund, and then give it the system
+[24:37] prompt.
+[24:38] Right? And you have to give it
+[24:40] guidelines and say always verify the
+[24:42] customer using look up his lookup
+[24:44] customer use tool data to answer
+[24:46] questions be warm and efficient. And
+[24:49] these are just guidelines that you can
+[24:50] give it right and then if you start
+[24:52] running it directly and you say hi I'm
+[24:54] customer so and so can you check my
+[24:56] recent orders it should be able to run
+[24:59] and it should do your tool calling. So
+[25:01] it should do look up customer tool one
+[25:04] and then it should pull up your order
+[25:06] history and then it should tell you
+[25:07] exactly what's happened and it's being
+[25:10] responsive and so now it's run it. Now
+[25:13] let's see what's happening under the
+[25:14] hood. So
+[25:19] excuse me if you inspect the loop what
+[25:22] you see is what's been happening. So
+[25:24] first the user is asking a question. The
+[25:27] assistant then says okay I'm going to
+[25:29] pull up the history. You see that it's
+[25:31] done the tool call and it's inserted the
+[25:33] customer ID. So it's understood from
+[25:36] your context what the customer ID is.
+[25:38] Then it's done get order history and
+[25:40] it's done the lookup for get order
+[25:42] history. Um the other cool thing about
+[25:44] writing tools is you just have to write
+[25:46] tools with an add tool decorator
+[25:48] function. And your tool can be it can be
+[25:52] code. It can be natural language. Right?
+[25:55] In this specific tool it's just natural
+[25:57] language. It's just this is what a tool
+[26:00] looks like and then returned this over
+[26:02] here and this is what it looks like. Um
+[26:05] but it can also be code. It can be
+[26:06] whatever you want it to be. All you need
+[26:08] to do in a tool is use the add tool
+[26:10] decorator function and you have tools.
+[26:12] So [clears throat] then it's done look
+[26:13] order get order history and then you get
+[26:15] tools. So now if you try it yourself and
+[26:18] you say hey this is I'm so and so it's
+[26:21] been delayed what's going on. It's going
+[26:23] to again look up track and it's going to
+[26:25] [snorts] tell you oh this is what's
+[26:26] happened and it's going to tell you oh I
+[26:28] don't have the specific details I'd
+[26:30] recommend checking with the carriers
+[26:32] websites in the meantime what what would
+[26:34] you like me to do so you can play around
+[26:37] with this and do it um if you want
+[26:39] multi-turn conversation I've also
+[26:41] created another uh version for chat.py
+[26:44] Pi. This is the code that runs and this
+[26:47] just it's the exact same code, exact
+[26:49] same system prompt. Everything is the
+[26:50] same. The only thing we have here is it
+[26:53] it does it en it's got multi-turn
+[26:56] conversation enabled.
+[26:58] So feel free so feel free to use this as
+[27:00] you're building your system. So you can
+[27:03] leverage this, right? So all you have to
+[27:06] do is go to cd pip install and run it.
+[27:09] Uh you will see it in the terminal
+[27:12] below. And so you just have to learn it
+[27:13] and you will see it working. Are we good
+[27:16] with this?
+[27:19] >> Question. Sorry, quick question. I think
+[27:21] we have some questions on how to get to
+[27:23] this code editor screen. We have a
+[27:25] couple of people who were asking.
+[27:27] >> Oh, okay. Great question. I'm going to
+[27:28] start back from the beginning. Is
+[27:30] everyone Okay, first question is
+[27:32] everyone has everyone checked this have
+[27:35] you logged in? Have you done your email
+[27:37] and password? And have you logged in
+[27:38] over here? If you have,
+[27:41] you should be able to see,
+[27:45] [clears throat] excuse me, [snorts]
+[27:47] you should be able to see this specific
+[27:50] page pop up. When you see this specific
+[27:53] page pop up, go all the way to the
+[27:55] bottom. You will see code editor URL.
+[27:59] Open that in, copy that, open that in a
+[28:02] new tab, and that will take you straight
+[28:04] to the module. And it's under workshop.
+[28:08] If you open [clears throat] workshop and
+[28:09] samples, you will see it being sample
+[28:11] one. Does this answer the question?
+[28:19] Okay, awesome. Um, and
+[28:22] uh, should you know Python? Yes, ideally
+[28:25] yes. Or you can v code it. But I think
+[28:26] it would be really helpful to understand
+[28:29] Python. You can do it with with
+[28:30] TypeScript as well if typescript is your
+[28:33] language of preference. Um but yes I
+[28:36] think ideally to debug what's going on
+[28:38] you will need to know some coding
+[28:40] language and typically everyone uses
+[28:41] Python for agents and so I yes I the uh
+[28:46] uh long answer short uh preferable to
+[28:49] know Python.
+[28:50] Um now uh so this is part one where
+[28:55] we've been able to just build a simple
+[28:57] agentic system. This itself is is going
+[29:00] to give you using just this one module.
+[29:04] You are going to be able to submit uh to
+[29:07] the hackathon. You are going to be able
+[29:09] to build a system. This by itself is
+[29:11] good enough. Give it the right set of
+[29:13] tools to solve the task at hand. Uh call
+[29:16] the agent and you are done. This is more
+[29:18] than enough, right? But this is more
+[29:22] than enough at the hackathon. But what
+[29:24] we want to do is build a good system,
+[29:27] right? So that's going to take us to our
+[29:29] second part which is hooks. And so what
+[29:32] are hooks? Right? Hooks are a way by
+[29:36] which you can inject deterministic code
+[29:40] into your agent loop. If you wanted to
+[29:43] do something at the time that you need
+[29:46] it, how do you enforce it? Because these
+[29:49] agents are taking actions on their own.
+[29:51] How do we ensure that it's actually
+[29:52] doing what we want it to do? What we
+[29:55] would do is use what's called a hook.
+[29:57] And so hooks are a placeholder. It's a
+[30:00] placeholder where you can insert
+[30:02] deterministic code and say, I want this
+[30:04] specific code to get executed here
+[30:07] otherwise the agent will not continue
+[30:09] with what it's doing. For example, rate
+[30:12] limiting. And we'll come to that in a
+[30:14] bit. But let's talk about it. So when a
+[30:16] user gives a request, when a user talks
+[30:19] to the agent, what you can do is and the
+[30:22] LLM is being called over here, what we
+[30:25] can do is even before the LLM is called,
+[30:27] we can we can have a placeholder here
+[30:29] and we can have a check and say is this
+[30:32] user the right type of user? Is the
+[30:34] question valid? And if it's not, we can
+[30:36] stop right here. We don't even have to
+[30:39] waste an LLM call. You can use you can
+[30:42] insert your guard rail right here and
+[30:44] you can say no we're not we're not
+[30:46] answer we're not answering these types
+[30:47] of questions. we're not answering
+[30:49] questions about you know different types
+[30:51] of on on different types of topics or
+[30:54] specific types of users don't have
+[30:55] authentication and so we can use a hook
+[30:58] there to stop or let's say you want it
+[31:00] after the LLM call but before the tool
+[31:02] call right let's say the LLM has called
+[31:05] and now it's going to go call a tool but
+[31:07] sometimes what happens is like for
+[31:09] example rate limiting in this case right
+[31:12] um if let's say there is a tool that's
+[31:14] broken and you don't want it to keep
+[31:17] calling that tool 10 different times
+[31:18] because hey it's clearly not working. It
+[31:20] needs to be able to fail nicely. You
+[31:24] need to be able to have exceptions and
+[31:26] handle it nicely. And so what we can do
+[31:29] is do a before tool called hook and say
+[31:32] check how many times this tool has been
+[31:33] called. If it has been called more than
+[31:35] x number of times stop it like send back
+[31:38] a a message to the user saying this is
+[31:40] not good. We want to stop it and you
+[31:41] want to handle it well. So you can
+[31:43] insert deterministic code there or even
+[31:46] after it's being done. So then you can
+[31:48] cancel or approve it and if it gets
+[31:50] approved the tool gets executed or it
+[31:52] gets cancelled and even after the tool
+[31:55] gives the result you can decide whether
+[31:57] you want it to give the final response
+[32:00] or if the result doesn't look good like
+[32:02] let's say they've asked very sensitive
+[32:03] question that's not been handled
+[32:05] anywhere else here and then you can have
+[32:07] your post result guard rail and you can
+[32:10] say no you know what I'm not showing
+[32:11] this result so you can still stop the
+[32:13] response from going out and this is how
+[32:15] you have control over your agent over
+[32:18] what your agent is is is giving you,
+[32:21] right? The result that the agent is
+[32:22] giving you. And so let's get down to
+[32:25] that. The code over here is going to be
+[32:27] the same as the code on the Jupyter
+[32:29] notebook page. But um and you can read
+[32:32] this as well if you want to start bit by
+[32:34] bit. Um and you can always click these
+[32:37] links and it's going to take you to this
+[32:38] trans agents website and it's going to
+[32:40] show you the details of what types of
+[32:42] hooks and where it is. Going to give you
+[32:44] full details. The workshop is just super
+[32:46] simple to get you started. So, back to
+[32:49] our workshop. We are in module 2. I hope
+[32:51] everyone's with me. I'm going to click
+[32:53] module 2 right now. I'm going to do this
+[32:56] pip install requirements again. It's
+[32:58] going to ask me to choose my environment
+[33:00] again, right? And you should all be
+[33:02] seeing this. And you just click your
+[33:03] Python 3 environment.
+[33:06] Um, I'm going to look at the chat and
+[33:07] see if I have more questions. Um,
+[33:14] is that how guardrails work? No, there
+[33:15] are different ways by which you can
+[33:16] enforce guardrails. This is one specific
+[33:19] type of guardrail that you can the a
+[33:21] guardrail is a way of preventing bad
+[33:24] answers from being shown. So, this is
+[33:26] one imple one type of implementation of
+[33:29] a guardrail. There are definitely
+[33:30] different types of guard rails and
+[33:32] different ways you can execute it in.
+[33:35] Um,
+[33:38] okay. Um, I'm speaking so fast. I should
+[33:43] probably slow it down. Okay, I will keep
+[33:45] that in mind. Um,
+[33:49] I will slow down a little bit. Uh, thank
+[33:51] you for the feedback. Now, what is a
+[33:54] rate limiter hook? um a rate limiter
+[33:57] hook. Um stick with me on this is we
+[34:02] have what we need to do is we need to
+[34:04] register the hook. What that means is
+[34:07] the model needs to know that there is a
+[34:09] hook that it should always go back to
+[34:12] and check. So a registry is where so
+[34:16] when you from stands import agents and
+[34:19] tools and tools are what we've defined
+[34:21] earlier as well, right? Like customer
+[34:23] service tools.py Pi this is the same set
+[34:25] of tools we saw earlier it is still here
+[34:28] so now you're importing um like those uh
+[34:31] the from the the tools over here and we
+[34:35] import agents and tools and we import
+[34:37] hooks and we import hook provider
+[34:41] registry and the two places where we
+[34:44] want the hooks to be at and this is what
+[34:46] I showed you earlier about you can have
+[34:48] it wherever you want here I'm just deep
+[34:51] diving it you don't have to be specific
+[34:53] about what you're calling In this case,
+[34:54] I just wanted to be super explicit. So,
+[34:56] I've very specifically mentioned them.
+[34:59] And so, here we're writing a simple
+[35:01] Python function. And what we're saying
+[35:04] is we each agent should be able to call
+[35:09] um each tool only three times. Shouldn't
+[35:12] be able to call more than three times
+[35:13] else that's a problem. So what we do
+[35:16] first is we add these hooks to the
+[35:20] registry and then we say register hooks
+[35:23] and then what we do is we start off by
+[35:27] resetting them to zero which means the
+[35:29] first time someone asks a question it
+[35:31] always the counter needs to start at
+[35:33] zero right the first time a user asks a
+[35:35] question so you start off at zero and
+[35:38] then what happens is when before the
+[35:40] tool is being called when there's a
+[35:44] particular tool being called, it has to
+[35:46] just look up the name of that tool and
+[35:48] it adds a counter. So you increase the
+[35:50] count by one. And so this keeps track of
+[35:54] the count. And this is a simple checker
+[35:57] which checks if the number of times that
+[36:00] it's been called is greater than the
+[36:02] number of times that it can call which
+[36:04] is in this case max default is three.
+[36:08] And if it is greater then it should not
+[36:11] be able to call this tool again and it
+[36:13] will uh give you a result that says hey
+[36:16] it's the tool has been blocked.
+[36:19] Okay. So we're writing a simple tool
+[36:21] over here a simple hook over here
+[36:26] that the tools always go to. And so what
+[36:30] we do next again it's just one simple
+[36:32] line of code is we have the same tools
+[36:36] as earlier. what we've added and we have
+[36:38] the same s system prompt as earlier. We
+[36:40] don't need all of that. Um
+[36:43] what we change is the hook. We just add
+[36:46] one additional line and we say hook rate
+[36:49] limiter hook max calls equals 3.
+[36:52] And so now I'm saying I'm customer so
+[36:56] and so. What are my recent orders? Let's
+[36:58] see how this works.
+[37:00] How this will work is the rate limiter
+[37:04] has been reset because we set it as
+[37:06] zero. This is the first time they're
+[37:07] asking a question. So, it's going to the
+[37:09] hook. It's running deterministic code.
+[37:12] It's looking up the order history. So,
+[37:14] it's called this tool once. So, it's
+[37:17] looking up customer. It's called it
+[37:18] once. It's calling order history. It's
+[37:22] called it once. It's called order
+[37:24] history again the second uh for the
+[37:26] second time. So, each of these it's
+[37:28] called these tools once each and it's
+[37:31] giving me the result. And so, this is
+[37:34] what happens in the back end. this is
+[37:36] not what the user can see. All of this
+[37:38] happens in the back end and the user
+[37:40] finally gets this response
+[37:42] where it says okay this is what it is
+[37:45] right now it's working well here because
+[37:47] this is working as it's supposed to work
+[37:49] the tools have not been overloaded but
+[37:52] let's say you actually want to trigger
+[37:54] the late limit right so here we're just
+[37:57] saying max calls equals two which which
+[37:59] means you can't call it more than twice
+[38:01] and I'm saying hey look up customers
+[38:03] look up five different customers at the
+[38:05] same time and give me all their details
+[38:08] Now when I run it, what it's going to do
+[38:10] is again it starts off by doing a rate
+[38:13] limit reset and it's doing a lookup
+[38:15] lookup lookup lookup lookup. It tries
+[38:17] calling lookup. And what we can see here
+[38:20] is it did do the first lookup call one
+[38:23] out of two. It's keeping track. Call two
+[38:25] out of two. Call three out of two and it
+[38:28] blocked lookup customer exceeded limit.
+[38:33] Same thing with four. Same thing with
+[38:35] five. And so now you can enforce your
+[38:38] agent to behave the way that you want it
+[38:41] to, but you still give it the
+[38:44] flexibility to think by itself, but you
+[38:46] are enforcing, right? And what we want
+[38:49] is control. We want runtime governance
+[38:53] of our systems. And so now what it's
+[38:56] doing is it's not retrieving this. If
+[38:58] you actually look at it
+[39:01] right now, if I view it as a scrollable
+[39:03] element, you'll be able to see the whole
+[39:04] thing. So, it retrieved it and it's only
+[39:07] showing the first two IDs that it
+[39:09] retrieved and it's going to say,
+[39:11] "Unfortunately, I've not been able to
+[39:13] receive this because the lookup tool hit
+[39:16] a usage limit." How cool is that? So,
+[39:19] now you can set your guard rails, you
+[39:22] can set your rules, you can enforce it
+[39:24] to do things the way that you want it to
+[39:26] do. And so, now here you can try it
+[39:29] yourself. You can play along with this.
+[39:30] You can you can play along with the
+[39:32] code, edit the code, and you can also do
+[39:34] multi-turn conversation with this. Um,
+[39:36] I'm going to take a look at the chat
+[39:38] again to see if there's more problems.
+[39:41] Um, there's a gateway timeout error. I'm
+[39:45] um I wonder what you're getting the
+[39:47] error for. Um,
+[39:52] I don't have context about where you're
+[39:55] running into the error, so I'm not able
+[39:56] to help you right now. But we can chat
+[39:59] about it. you can show me what it is and
+[40:00] we can apologize for that team invite. U
+[40:03] I'm going to be skipping my work meeting
+[40:05] in priority of this. Um
+[40:09] suppose [clears throat] there's a
+[40:10] scenario a restaurant ordering agents if
+[40:12] anyone asks a question having a specific
+[40:15] ingredient that will cause allergy will
+[40:17] hook can use guarding these types of
+[40:20] scenarios like maybe that question is
+[40:22] not about food this is hook will
+[40:24] execute. Yes, yes, yes, yes, yes, yes.
+[40:27] Hooks are great, but we will go to the
+[40:29] next module where you will learn cooler
+[40:31] things, much cooler things. I just
+[40:33] personally love the next module. Um, but
+[40:37] yes, hooks are the place by which you
+[40:39] can enforce it to do things a certain
+[40:41] way. If someone if as part of your tool
+[40:45] you if there is a tool for allergies you
+[40:48] can tell them and say hey I want you to
+[40:51] make sure that this allergy tool is
+[40:53] always running before like by without
+[40:56] bypassing it when someone's asking a
+[40:58] question so you can ensure that it does
+[41:00] the things that you want it to right so
+[41:03] this is hooks um I didn't see any other
+[41:07] questions so I'm going to thank you for
+[41:09] the feedback yes uh yesmen um to the
+[41:13] next uh uh module and we have another
+[41:17] 13-ish minutes to go. So I want to leave
+[41:19] the last few uh minutes open. I think I
+[41:22] will do the next module in full steam
+[41:26] and then I can quickly go over what all
+[41:28] the other sessions have what the other
+[41:30] modules have and I also want to open the
+[41:31] floor for more questions in case you
+[41:33] have any. Um so let's quickly get to
+[41:35] this. Um the second the third the third
+[41:38] one is what is called skills and
+[41:42] steering. Now we've all heard of skills.
+[41:44] I think skills are a way by which you
+[41:48] can ensure that you are only giving it
+[41:50] the context that it needs at the time
+[41:53] that it needs it. Right? So now in the
+[41:56] beginning what we would do is as we're
+[41:58] writing our simple agent um as we're
+[42:02] writing our simple agent right system
+[42:04] prompt we don't want it to have like a
+[42:06] really big system prompt with all of the
+[42:08] information about this is who you are
+[42:10] and these are all of the rules and these
+[42:12] are how you do things. You don't want to
+[42:14] load all of it into the system prompt.
+[42:16] You can if you're using a really big
+[42:18] model because they do have um you know a
+[42:20] token size of 1 million input tokens,
+[42:22] right? But why do you want to do it?
+[42:24] it's it's overloading it and it may not
+[42:26] even be necessary. So skills are a way
+[42:29] by which you can ensure that the LLM
+[42:33] gets access to that context only at the
+[42:36] time that it needs it. So what we do
+[42:39] instead is we give it all of that
+[42:41] context into a separate folder called
+[42:43] skills folder and we will give it a
+[42:46] detailed mechanism of how to do it right
+[42:49] and then this only loads it at the time
+[42:51] that it needs it and we call the agent
+[42:54] skills plugin and it calls it and it
+[42:57] activates that skill only at the time
+[42:59] that it needs it. Okay. And then we'll
+[43:02] go to steering. And steering is also
+[43:04] cool, but I'm going to talk about um
+[43:06] skills first. Right. So, under skills,
+[43:09] um this is the other tool. Ah, I closed
+[43:11] my screen. Yikes. Um
+[43:15] [clears throat] okay, [snorts] back to
+[43:17] code editor.
+[43:20] And we're back on the third one, which
+[43:23] is skills. Now before we see skills,
+[43:27] let's also look at the skills folder
+[43:30] that I was initially talking about. Now
+[43:31] skills has access to three different
+[43:34] skills. And this is a simple markdown
+[43:36] file. And markdown file is basically
+[43:38] just I'm not going to sign into all of
+[43:40] these. Um and a markdown file is a
+[43:43] simple, you know, text file type of
+[43:45] thing where you can write it. So now
+[43:47] let's say someone has a problem with
+[43:48] their account. People can call for
+[43:50] different reasons, right? People can
+[43:51] chat with agents for different reasons.
+[43:53] So if someone's saying oh my, you know,
+[43:55] like something's not working with my
+[43:57] account, please fix it. You don't want
+[43:58] to write all of these details in the
+[44:01] system prompt directly. What you would
+[44:02] want to do is write it in the skills
+[44:04] file. So now what we do is we write the
+[44:08] name of what what what the name of the
+[44:11] skill is and what the skill is meant
+[44:13] for. We write a simple description on
+[44:15] what this is meant for. And this is all
+[44:19] that gets loaded into the system prompt.
+[44:22] the the LLM has access to only this in
+[44:25] the beginning. Right? These are all of
+[44:27] the detailed mechanisms and this does
+[44:29] not get stored. Same thing with order
+[44:32] tracking. If someone's asking and
+[44:34] saying, "Hey, can you help me track my
+[44:36] order?" You want to do all of these
+[44:38] detail steps. You want to say, "Look up
+[44:40] customer, get order history, check the
+[44:42] process, do all of these big steps, but
+[44:44] you don't want to put all of this in
+[44:45] your system prompt, right? And yes,
+[44:47] these are tools that can be looked up,
+[44:49] but how does the LLM know which tools or
+[44:52] which order the tools need to be looked
+[44:54] up in? Right? So, you give it access to
+[44:56] skills. And again, name and description,
+[44:59] name of the skill and the description of
+[45:01] the skill and write down the skill in
+[45:03] full detail. Now, the cool thing with
+[45:06] VIP coding is you can get your coding
+[45:08] assistants to help you write these
+[45:10] things. You have to be good at system
+[45:12] design. You have to tell it what to do.
+[45:14] You have to tell it and say hey make a
+[45:16] skill for this only then will it do it
+[45:19] the way you do it right so give it and
+[45:21] tell it hey I want you to give it a
+[45:22] skill but and here's what skills are so
+[45:25] you give it access to this website give
+[45:27] it access to the sample skill and say
+[45:30] this is what a skill looks like I want
+[45:31] you to add a skill to the system that
+[45:34] I'm building for the hackathon because I
+[45:36] need it that way and that is when it
+[45:38] will follow if you don't tell it what it
+[45:40] needs to do it will not know it but it
+[45:43] knows how to do So it will figure out
+[45:46] how to do it if you give it access to to
+[45:48] this. Right? So that's that's the whole
+[45:50] point of us doing this workshop
+[45:52] hands-on. We need to know what we're
+[45:53] building. Now this is the second type of
+[45:56] skill. The third one is refund
+[45:57] processing. If someone says, "Hey, give
+[45:59] me a refund for my for whatever my order
+[46:02] is." That has its own steps. And so
+[46:04] that's the name and description. So
+[46:06] diving back into module number three,
+[46:11] um I'm going to install. It's going to
+[46:12] ask me for my Python environment uh
+[46:15] installing. And now
+[46:18] again, same thing. I've got all these
+[46:20] three skills. What I need is this is
+[46:22] just a system prompt. And the system
+[46:25] prompt just says same as before. Same
+[46:27] system prompt as before. Nothing crazy.
+[46:29] Nothing changed.
+[46:31] Yet another line. We add in plug-in. And
+[46:33] we say skills plugin.
+[46:36] And so this skills plugin goes to this
+[46:39] um folder over here that has the skills
+[46:43] and this will get access to all the
+[46:46] three skills that are here. And now if
+[46:47] you run it and you say hey I would like
+[46:50] a refund
+[46:52] you see it calling skills as a tool. So,
+[46:56] it's doing the step of looking up the
+[46:57] customer getting order history and then
+[47:00] when you say you want a refund, it looks
+[47:02] up the skills and then it does it takes
+[47:04] all the steps that you're supposed to
+[47:06] take
+[47:08] that that's been mentioned in the skill.
+[47:10] So, if you have a very detailed um list,
+[47:14] checklist or you know steps that need to
+[47:16] be taken to get to the end result,
+[47:18] skills is where you add it. And then it
+[47:20] says, "Okay, would you like me to go and
+[47:22] do this?" Right? This is pretty cool. Do
+[47:24] we have any more questions on skills?
+[47:28] Um,
+[47:30] okay. Uh, would you recommend
+[47:32] implementing these methodological rules,
+[47:35] the combination? Yes, I would recommend
+[47:37] using skills, hooks, and sharing
+[47:38] handlers wherever uh possible because
+[47:41] they Yes, for auditable evidence. You've
+[47:44] actually said it. Yes, it just gives you
+[47:46] more determinism and that's that's what
+[47:48] you need. Yes, you can download these
+[47:51] files. You can test it locally. There is
+[47:53] a GitHub repository. I will share that
+[47:54] again the last two minutes. Um you have
+[47:57] access to this workshop for the next two
+[47:59] three days. So you can for the next
+[48:01] 70ish hours. So you can continue to
+[48:03] reuse this. Uh no no no. So no no when I
+[48:06] said only module one is required for the
+[48:08] hackathon. What I meant is that's good
+[48:10] enough to build an agentic system. If
+[48:13] you want to build if you want to win the
+[48:14] hackathon, I would recommend making it
+[48:17] as deterministic as possible. I would
+[48:19] recommend incorporating as much as this
+[48:22] wherever pos possible but there's no
+[48:24] pressure to use any of this. Use this
+[48:27] only based on your use case wherever you
+[48:29] wanted to. You there's no pressure to
+[48:30] use it and but it's just going to help
+[48:32] you build a better system. So one is
+[48:35] enough to get you going building out a
+[48:38] system. So yes uh one is the bare
+[48:40] minimum. Um what is what is steering?
+[48:43] Right? Steering is my favorite part of
+[48:44] scans honestly like this is my favorite
+[48:46] part. How many of us have struggled with
+[48:49] M dashes, right? How many I've tried so
+[48:52] hard like so often telling my chat GPT
+[48:55] or whichever agent I'm using and I keep
+[48:58] telling it don't use M dashes, don't
+[49:00] sound AI, please don't do this. And I
+[49:02] keep telling it to do these things. It
+[49:04] never listens. It never listens, right?
+[49:07] It always fails. And so what is there
+[49:10] anything we can do to make sure that
+[49:12] it's listening to what we want it to
+[49:14] listen to? So, let's take this to a
+[49:17] whole different level of control. And
+[49:19] when your agent is making a bad move,
+[49:23] when it's making a move that you don't
+[49:24] want it to make, can we get it back on
+[49:27] track? And that is what steering does.
+[49:29] It sort of steers your agent back into
+[49:33] the direction that you want it to be
+[49:34] steered back in. And so, I'm going to go
+[49:36] back to this and talk a little bit about
+[49:38] steering. And what steering does is
+[49:41] before it's taking action on a specific
+[49:44] item, there is a buddy agent that will
+[49:48] step in. This can be a buddy agent or it
+[49:50] can be deterministic code. It can be
+[49:52] either or. And we in place it on top of
+[49:55] a hook because that's like a
+[49:56] placeholder. And we can allow it. We can
+[49:59] tell it if it wants to proceed or we can
+[50:01] guide it. If it's making a mistake, you
+[50:03] can tell it, hey, no, you're doing it
+[50:04] wrong. First, look up the customer. You
+[50:07] can't just go and refund something or
+[50:10] you can just approve it or you can just
+[50:12] reject it also. So you can take three
+[50:14] actions. And so today we're going to be
+[50:16] looking at two types, two examples. One
+[50:19] is a refund workflow where it's going to
+[50:22] just skip looking up users and it's
+[50:25] going to try and process refund and you
+[50:26] can guide it or the tone. It's not
+[50:29] speaking in the tone that you want it to
+[50:31] speak in. Right? So then can we get the
+[50:33] buddy agent to redo that? If you say hey
+[50:36] don't talk about competitors don't talk
+[50:37] about certain topics how do we enforce
+[50:39] it right the tone of it or like not
+[50:41] using m dashes and so this steering is a
+[50:44] way by which you can do it so now
+[50:46] quickly back to steering
+[50:49] um so I'm just going to install this um
+[50:53] yeah this is I'm in module steering okay
+[50:57] so this is the deterministic enforcement
+[51:00] um
+[51:01] okay this is the deterministic
+[51:04] enforcement
+[51:05] The first thing we do here is we again
+[51:08] I've detailed it out over here. Steering
+[51:10] handler lm steering proceed guide all of
+[51:12] this. You don't have to call this. If
+[51:14] you just import plugins steering you're
+[51:16] going to get it. I'm just doing it in
+[51:18] detail. What we do here is we write a
+[51:20] class and we say this is how a steering
+[51:22] handler is supposed to look. Similar to
+[51:24] writing a tool. It calls it like a tool
+[51:27] and you say this is where you establish
+[51:29] the rules and you say it must look up
+[51:31] the customer before processing a refund
+[51:32] and it must check order history before
+[51:34] processing a refund and then you define
+[51:37] it over here. Ledger is like document
+[51:39] keeping to keep track of what's happened
+[51:41] so far and then this keeps a track of
+[51:44] all the tools that have been called and
+[51:46] this validates whether customer has been
+[51:50] looked up or it hasn't been looked up
+[51:52] and if it hasn't you returned guide. So
+[51:56] this will help guide it if it's not
+[51:58] working the way it's supposed to do and
+[52:00] this end this ensures that it's checking
+[52:03] order history that it's looking up
+[52:06] customer name first. Right? So this is
+[52:08] just a tool that we've written um and
+[52:11] we're defining this handler and all we
+[52:14] need to do this is the final part. This
+[52:16] is the most important part. This all of
+[52:18] this can be vibe coded if you want it to
+[52:20] be right. And this is another type. This
+[52:23] is the tone guard rail. And so in the
+[52:25] tone guard rail you say don't
+[52:26] overpromise, don't blame the customer.
+[52:28] Acknowledge the frustration. And this is
+[52:31] where you tell it you know don't use m
+[52:32] dashes. This is where you'd give it all
+[52:34] of that information about how you want
+[52:36] it to respond in a certain way. And um
+[52:40] then this checks if it has been
+[52:42] evaluated. So now a buddy agent gets
+[52:45] invoked at the time that it needs to and
+[52:47] it checks whether the tone is okay and
+[52:49] it only proceeds if it is otherwise it
+[52:52] guides the tone back into the way that
+[52:54] it's supposed to be done. So we're
+[52:56] defining two specific handlers over here
+[52:58] and this is all you need. We've given it
+[53:00] skills that it has access to earlier on
+[53:02] in the plugins. We give it access to
+[53:05] both the handlers, both the steering
+[53:07] functions, right? And the tools are the
+[53:10] same as before. So, it's still just one
+[53:12] line of code and all you add are
+[53:16] features and tools that it can use to do
+[53:18] it. So, let's quickly run it. So, now
+[53:20] I'm saying I want a refund for my
+[53:21] wireless headphone. What it's going to
+[53:23] do is it's going to look up customer.
+[53:26] It's going to get order history. It's
+[53:28] evaluating the agent response the tone.
+[53:31] It's checking the tone and it's still um
+[53:34] in the meantime I'm going to check if
+[53:35] there are any questions that I can take
+[53:38] and then um so when will the buddy agent
+[53:42] know when to get activated? It will know
+[53:45] when it's making a mistake. So with the
+[53:48] help of a hook you will you will decide
+[53:51] where you want it to be at right. So um
+[53:55] for example, you will tell it to steer
+[53:58] after the model response. You can tell
+[54:00] it to steer before the model response,
+[54:03] right? Um sorry, you can tell it to do
+[54:07] it at any point that you want to do it,
+[54:10] right? You can tell it if not customer
+[54:12] verify then guide. So you can decide
+[54:14] when you want to have it do the things
+[54:16] that you wanted to do. So you get to
+[54:18] have decide when it's being called. Here
+[54:20] you're saying steer before the tool
+[54:22] call, right? So you can determine for
+[54:25] yourself based on your use case when it
+[54:27] makes more sense to call it. And so now
+[54:30] u what it's done is it's got the result.
+[54:32] It's looked up the order and since
+[54:34] you're confirmed you'd like to proceed,
+[54:36] let me process that refund. And it's
+[54:38] again checking the answer. It's again
+[54:41] going to check whe whether the agent
+[54:42] response is correct, whether the tone is
+[54:44] correct and whether this is correct and
+[54:46] it's going to give you and so now you
+[54:48] can again try it yourself. Now I know
+[54:50] we're actually almost at time. So I'm
+[54:53] going to stop talking about this u but
+[54:57] I'm also going to talk about session
+[54:58] management which is session persistence.
+[55:00] If you've asked it a question it's
+[55:02] forgotten what you've spoken about. It
+[55:04] needs to remember over session right. So
+[55:08] how can we do that? So that's with
+[55:10] session manager. Um deploying to agent
+[55:12] core gives you step by step how to do
+[55:14] it. Uh it's just like five simple
+[55:17] different lines of code. That's all it
+[55:19] is. It's literally just five different
+[55:21] lines of code and you can do it. You can
+[55:23] build multi-agentic systems. You can do
+[55:26] eval um how did it actually perform and
+[55:30] you can build a full system end to end.
+[55:33] Um I know we're at time. I'm going to
+[55:35] hand it over to Daries. Um and take any
+[55:38] questions if we have time if we're
+[55:40] allowed to run over or Yeah. But thank
+[55:43] you for listening to me and thank you
+[55:44] for your questions. I hope you enjoyed
+[55:47] it.
+[55:48] >> Amazing. This was a great session. I
+[55:50] know we got some great questions that
+[55:52] you honestly answered I think a lot of
+[55:55] them honestly. I think someone asked
+[55:58] let's look at the Q&A. I'm loving I'm
+[56:01] loving all the claps, the hearts and
+[56:03] everything. Let's see. Is it necessary
+[56:06] to choose uh LLM Nova Pro? Is it okay to
+[56:09] use Claude 4.5 instead? Will it block
+[56:12] like my participation? Okay. All good.
+[56:14] >> Yes. Yes. Yeah. Yeah. Use use your
+[56:16] model, your favorite model of choice. Um
+[56:19] use whatever you want. You don't have to
+[56:20] use Nova.
+[56:22] >> Amazing. Okay. So, I know we're at time.
+[56:24] I don't want to go over too much, but
+[56:27] there are resources here. So, definitely
+[56:29] take a screenshot of what you're seeing
+[56:31] on this screen. We'll also send links.
+[56:33] We'll send the recording as well. If you
+[56:35] have additional questions about anything
+[56:38] that you saw today, honestly, go through
+[56:40] the workshop. We went through a couple
+[56:41] of modules today, but continue to go
+[56:43] through it as well. But you can ask
+[56:45] questions within Discord. You can ask
+[56:46] them on the discussion forum um on the
+[56:49] hackathon page as well. You can ask each
+[56:51] other um use each other as a resource as
+[56:54] well. And I'm really excited to see what
+[56:56] you all build. So, quick things, it will
+[56:59] be uploaded to our YouTube. And so if
+[57:03] you aren't subscribed at least to our
+[57:05] YouTube, I will say that'll be the first
+[57:07] place you'll get notified that this
+[57:09] recording has been uploaded. And so I'll
+[57:12] post that in the chat as well. Lastly, I
+[57:15] would love to say please, please, please
+[57:17] fill out our feedback survey, which I
+[57:19] posted several times in the chat, but I
+[57:21] will post again. This survey just allows
+[57:24] us to know that you enjoyed it or you
+[57:26] have feedback. We want to continue to um
+[57:29] offer these build sessions and continue
+[57:32] to, you know, talk with amazing people
+[57:34] like Sandy. And if you want to connect
+[57:36] with Sandy, her LinkedIn is right on
+[57:37] that screen. Oh, you changed it. But
+[57:39] >> Oh. Oh, yeah. Yeah. Yeah. I can share it
+[57:40] again. I just Yeah, [laughter] I can
+[57:42] share it again. I was like my face for
+[57:45] too long, but um [laughter] yeah. Okay,
+[57:47] there it is.
+[57:49] >> Perfect. All right. Well, continue to
+[57:51] connect with Sandy about this hackathon,
+[57:54] and we're excited to see what you build.
+[57:56] Honestly, I hope everyone has a great
+[57:58] rest of your day. I hope you enjoyed
+[58:00] this session. Please, please, please
+[58:01] fill out that survey and we'll see you
+[58:03] at the next one. Don't forget that the
+[58:05] submission deadline for this hackathon
+[58:07] is September 14th. Okay, one thing to
+[58:10] note with Dev Post, you don't have to
+[58:12] wait till the last day to start your
+[58:14] draft of your submission. So, I would
+[58:16] recommend at least starting the draft of
+[58:19] the submission today. Title it and just
+[58:22] have it there. You can fill it in as you
+[58:24] go, but don't wait till the last minute
+[58:25] to submit because once that deadline
+[58:28] hits, the deadline is the deadline is
+[58:29] the deadline is the deadline. All right,
+[58:32] thank you all so much and I hope you
+[58:33] have a great rest of your day.
+[58:37] >> Thank you for having me and happy
+[58:38] birthday. Happy birthday.
+[58:41] [laughter]
+[58:41] >> Thank you so much. All right, thank you
+[58:44] everyone.
