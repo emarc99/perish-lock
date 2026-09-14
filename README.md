@@ -107,6 +107,20 @@ PerishLock demonstrates **deep, non-trivial** usage of the Strands Agents SDK:
 
 ---
 
+## ☁️ Amazon Bedrock AgentCore Deployment
+
+PerishLock is deployed with live provisioned resources on **Amazon Bedrock AgentCore**:
+
+- **Bedrock AgentCore Memory (Live in `us-east-1`):**
+  - **Memory ID:** `perishlock_memory_demo-dG2s8s7mXm`
+  - **ARN:** `arn:aws:bedrock-agentcore:us-east-1:226579698869:memory/perishlock_memory_demo-dG2s8s7mXm`
+  - **Status:** `Active` (30-day event expiration)
+  - **Role:** Persists cross-session cooperative incident context, partner reliability scores, and historical settlement precedents via the official boto3 client (`boto3.client("bedrock-agentcore", region_name="us-east-1")`).
+- **Foundation Models:** Seamless model agility supporting **Amazon Nova Pro** (`amazon.nova-pro-v1:0`) and Anthropic Claude 3.5 Sonnet on Amazon Bedrock.
+- **Infrastructure as Code:** Production CloudFormation template and provisioning scripts are located in [`deploy/agentcore.py`](deploy/agentcore.py) and [`deploy/cloudformation_agentcore.yaml`](deploy/cloudformation_agentcore.yaml).
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
