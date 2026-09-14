@@ -46,13 +46,11 @@ Globally, **40% of perishable food loss occurs post-harvest** in developing-worl
 
 ## 🏗️ Architecture
 
-### Official AWS Hackathon Architecture Alignment
-PerishLock directly implements the two-tier architectural pattern specified in the [AWS Agents for Humans Hackathon FAQ](https://agentsforhumans.devpost.com/details/faqs):
+### Hackathon Architecture Alignment
 
 ![PerishLock AWS Architecture Diagram](assets/architecture_diagram_aws_format.png)
 
 ### Deep Technical Component Layout
-![PerishLock Technical Architecture](assets/architecture_diagram.svg)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -126,9 +124,7 @@ python -m perishlock.demo
 ```
 This executes the complete end-to-end workflow with **zero AWS credentials required** — the deterministic trajectory runner exercises all 11 tools, generates the Merkle manifest, and produces the HITL approval gate.
 
-### 🌐 Live Demo & 1-Click Vercel Deployment
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+### 🌐 Demo
 
 #### Run Next.js Dashboard Locally:
 ```bash
