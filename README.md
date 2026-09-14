@@ -212,18 +212,6 @@ fixtures/                # Deterministic test data
 
 ---
 
-## 🏆 Judging Criteria Alignment
-
-| Criterion | How PerishLock Addresses It |
-|-----------|---------------------------|
-| **Technological Implementation** | 11 typed Strands tools, hooks, steering handlers, AgentSkills, SHA-256 Merkle evidence sealing, HMAC-based single-use approval tokens with anti-replay |
-| **Design** | Premium glassmorphism Mission Control UI with Chart.js telemetry visualization, micro-animations, and interactive HITL authorization |
-| **Originality/Creativity** | Novel intersection: parametric insurance + autonomous cold-chain defense + LLM-reconciled partner intake notes + food rescue social impact |
-| **Impact** | Directly protects $9,230 of smallholder farmer income; prevents 14,000 kg food waste; feeds 1,800 families in Community Relief option |
-| **Presentation** | Zero-credential demo runs in <30s; comprehensive README; 22-test adversarial evaluation suite; interactive web dashboard |
-
----
-
 ## 📄 License
 
 Apache License 2.0. See [LICENSE](LICENSE) for details. Built for the **AWS Agents for Humans Hackathon 2026**.
