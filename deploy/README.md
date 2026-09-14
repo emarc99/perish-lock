@@ -65,7 +65,7 @@ This directory contains the deployment automation to provision PerishLock onto *
 
 ---
 
-### Option B: Zero-Credential Local Simulation / Judge Verification
+### Option B: Standalone Offline Simulation / Evaluation Mode
 
 If evaluating without active AWS credentials, the system automatically falls back to deterministic zero-credential execution:
 
@@ -73,7 +73,7 @@ If evaluating without active AWS credentials, the system automatically falls bac
 # Verify AgentCore provisioning pipeline (dry run)
 python -m deploy.agentcore --dry-run
 
-# Run zero-credential judge speedrun
+# Run standalone offline simulation
 python -m perishlock.demo
 
 # Launch local Mission Control

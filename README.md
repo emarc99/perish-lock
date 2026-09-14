@@ -120,7 +120,7 @@ PerishLock demonstrates **deep, non-trivial** usage of the Strands Agents SDK:
 pip install -r requirements.txt
 ```
 
-### Run the Zero-Credential Judge Demo
+### Run the Standalone Interactive CLI Demo
 ```bash
 python -m perishlock.demo
 ```
@@ -195,16 +195,14 @@ perishlock/
 ├── api/                 # FastAPI REST API
 │   ├── routes.py        # 9 endpoints for Mission Control
 │   └── server.py        # CORS + static file serving
-└── demo.py              # Zero-credential judge speedrun
-web/
-├── index.html           # Mission Control dashboard (glassmorphism)
-├── style.css            # Premium dark-mode design system
-└── app.js               # API integration + Chart.js telemetry
-ui/                      # Next.js 15 (App Router) + React + Tailwind CSS (Vercel Ready)
+└── demo.py              # Standalone interactive CLI demo
+ui/                      # Next.js 16 (App Router) + React + Tailwind CSS (Vercel Ready)
 ├── app/                 # App Router pages & serverless API routes
-│   ├── layout.tsx       # Dark-mode root layout & typography
-│   ├── page.tsx         # Mission Control reactive dashboard
-│   └── api/             # Zero-crash serverless route handlers
+│   ├── layout.tsx       # Root layout & typography
+│   ├── page.tsx         # Executive Landing Page
+│   ├── article/         # AWS Builder Build Story
+│   ├── mission-control/ # Mission Control reactive operator cockpit
+│   └── api/             # Standalone serverless route handlers
 ├── components/          # TelemetryChart, AgentTraceFeed, SalvageOptions, Merkle tree
 └── lib/                 # TypeScript models & deterministic canonical fixtures
 evals/

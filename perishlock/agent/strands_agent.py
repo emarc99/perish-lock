@@ -84,7 +84,7 @@ def create_perishlock_agent(
 
 
 class DeterministicTrajectoryRunner:
-    """Zero-credential judge runner that deterministically executes the canonical PerishLock tool workflow."""
+    """Standalone offline runner that deterministically executes the canonical PerishLock tool workflow."""
 
     def __init__(self, incident_id: str = "INC-POL-RB-TOM-2026-001"):
         self.incident_id = incident_id

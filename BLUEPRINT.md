@@ -185,7 +185,7 @@ Fresh tomatoes are a strong demonstration commodity because:
 - They are widely grown by smallholder farmers in tropical regions.
 - They have well-documented temperature requirements: **optimum storage 10–13°C**; above 15°C, accelerated bacterial soft rot and ethylene-driven over-ripening begin; below 7°C, chilling injury occurs (FAO guidance on post-harvest quality).
 - Post-harvest losses for tomatoes in sub-Saharan Africa are estimated at **40–50%** by the FAO, largely due to inadequate cold-chain infrastructure.
-- They create concrete, relatable stakes for judges: *"1,200 kg of tomatoes worth approximately ₦2,500,000 (~$3,400) for 12 families."*
+- They create concrete, relatable stakes for stakeholders: *"1,200 kg of tomatoes worth approximately ₦2,500,000 (~$3,400) for 12 families."*
 
 ### Scenario
 
@@ -250,7 +250,7 @@ The winning screen should say something like:
 - AgentCore/CloudWatch observability.
 - Ground-truth and tool-trajectory evaluation cases.
 - **Mission Control incident console** with embedded trace viewer (see §11a).
-- **Zero-dependency judge harness** — one-click simulated outage (see §11b).
+- **Zero-dependency evaluation harness** — one-click simulated outage (see §11b).
 
 ### P1 — Add after P0 is reliable
 
@@ -303,7 +303,7 @@ The winning screen should say something like:
 | Should a partner be contacted? | No | Recommends | **Coordinator approves** |
 | Should transport be dispatched? | No | Recommends | **Coordinator/partner approves** |
 
-This table should appear in the repository and judge interface.
+This table should appear in the repository and evaluation interface.
 
 ---
 
@@ -359,7 +359,7 @@ flowchart TD
     ACR --> OBS[AgentCore Observability / CloudWatch]
     OBS --> EVAL[AgentCore Evaluations]
 
-    subgraph JUDGE_HARNESS[Judge Harness — zero dependency]
+    subgraph EVAL_HARNESS[Evaluation Harness — zero dependency]
         CONSOLE[Mission Control Console]
         SIM_BTN["⚡ Simulate Outage button"]
         TRACE_VIEW[Embedded Trace Viewer]
@@ -371,7 +371,7 @@ flowchart TD
 
 ### Service responsibilities
 
-| Service | Responsibility | Judge evidence |
+| Service | Responsibility | Audit evidence |
 |---|---|---|
 | AWS IoT Core | Authenticated MQTT ingestion | Device, topic and received messages |
 | IoT Rule + Lambda | Normalize and validate readings | Rule, error action and normalized event |
@@ -453,7 +453,7 @@ Persist the exact readings and rule version used.
 - expired calibration;
 - disagreement between sensors (sensor A at 17°C, sensor B still at 11°C).
 
-The judge should see at least one bad reading rejected.
+The operator should see at least one bad reading rejected.
 
 ---
 
@@ -612,7 +612,7 @@ No state is named `paid`, `safe`, or `settled` in the production-facing prototyp
 
 ### Why this matters for judging
 
-- Judges see a **product**, not a proof of concept.
+- Stakeholders see a **product**, not a proof of concept.
 - The thermal countdown creates urgency that sells the "every minute matters" narrative.
 - Side-by-side cards with partner intake notes prove the agent is doing real cognitive work.
 - The safety/sandbox warnings are impossible to miss.
@@ -620,28 +620,28 @@ No state is named `paid`, `safe`, or `settled` in the production-facing prototyp
 
 ---
 
-## 11b. Judge harness — frictionless reproducibility
+## 11b. Evaluation harness — frictionless reproducibility
 
-> **Strategic Improvement #4 — The 90-Second "Judge Test."**
-> Hackathon judges evaluate dozens of projects in limited time. If running PerishLock requires configuring IoT certificates, MQTT brokers, 4 Lambdas, and custom IAM roles, they will not do it.
+> **Strategic Improvement #4 — The 90-Second "Evaluation Test."**
+> Evaluators and reviewers test dozens of systems. If running PerishLock requires configuring complex IoT certificates, brokers, and custom IAM roles, reproducibility suffers.
 
 ### Dual-mode architecture
 
 **Mode 1: Hosted live demo (primary)**
-- A publicly accessible URL where the judge opens the Mission Control console.
+- A publicly accessible URL where the evaluator opens the Mission Control console.
 - A prominent `⚡ Simulate Cold-Room Outage` button that replays a pre-recorded incident scenario in fast-forward (~60 seconds instead of 4 hours).
-- The judge watches telemetry arrive, threshold fire, agent reason, options appear, and can click "Approve."
+- The operator watches telemetry arrive, threshold fire, agent reason, options appear, and can click "Approve."
 - An embedded **Trace Viewer** panel (below the main incident card) showing the real Strands tool calls, Bedrock model prompts/responses, and Step Functions state transitions — without requiring CloudWatch access.
 
 **Mode 2: Local simulator (backup)**
 - `python -m perishlock.demo` runs a fully mocked local mode that replays the same scenario against stubbed AWS services.
 - Outputs a localhost URL with the same Mission Control console.
-- Useful for judges who want to inspect code or for offline evaluation.
+- Useful for reviewers who want to inspect code or for offline evaluation.
 
-### Judge walkthrough (embed in README)
+### Evaluation walkthrough (embed in README)
 
 ```
-Judge it in 90 seconds:
+Evaluate in 90 seconds:
 
 1. Open https://perishlock-demo.example.com
 2. Click "⚡ Simulate Cold-Room Outage"
@@ -666,7 +666,7 @@ The trace viewer is a collapsible panel within the web console that shows:
 | Evidence hashes | S3 manifest | SHA-256 hash list with verification status |
 | Approval events | DynamoDB | Timestamp, coordinator ID, action, nonce, consumed/rejected |
 
-This eliminates the need for judges to have AWS Console access while still proving real AWS execution.
+This eliminates the need for reviewers to have direct AWS Console access while still proving real AWS execution.
 
 ---
 
@@ -773,7 +773,7 @@ Use one incident-response agent with tightly scoped tools. The complexity comes 
 ### Model use — why the LLM is necessary
 
 > **Strategic Improvement #1 — Avoid the "Why do you need an LLM here?" trap.**
-> The previous blueprint was so thorough about deterministic boundaries that a skeptical judge could ask: "Couldn't a script just sort partners by distance?" The improved design gives the LLM a genuine cognitive task that code alone cannot perform: interpreting semi-structured, messy partner notes and synthesizing multi-factor trade-off explanations.
+> The previous blueprint was so thorough about deterministic boundaries that a skeptical reviewer could ask: "Couldn't a script just sort partners by distance?" The improved design gives the LLM a genuine cognitive task that code alone cannot perform: interpreting semi-structured, messy partner notes and synthesizing multi-factor trade-off explanations.
 
 The Bedrock model may:
 
@@ -879,7 +879,7 @@ Expose deterministic tools directly to Strands during P0 or through AgentCore Ga
 
 ### Why this matters
 
-A skeptical judge may ask: *"If eligibility is deterministic and routes are from Amazon Location, what does the LLM actually do?"*
+A skeptical reviewer may ask: *"If eligibility is deterministic and routes are from Amazon Location, what does the LLM actually do?"*
 
 The answer: **real-world salvage partners do not publish clean, machine-parseable intake rules.** They write messy notes like:
 
@@ -1328,7 +1328,7 @@ perishlock/
 │       └── telemetry.py
 ├── simulator/
 │   ├── mqtt_publisher.py
-│   ├── demo.py                    ← zero-dependency judge mode
+│   ├── demo.py                    ← zero-dependency standalone mode
 │   ├── scenarios/
 │   │   ├── happy_path.json
 │   │   ├── sensor_spike.json
@@ -1376,14 +1376,14 @@ perishlock/
 └── docs/
     ├── architecture-diagram.png
     ├── decision-rights-matrix.md
-    └── judge-walkthrough.md
+    └── quickstart-walkthrough.md
 ```
 
 ---
 
 ## 22. Five-day build plan
 
-> **Note:** This is an accelerated plan reflecting the ~5 days remaining before the September 14 deadline. Ruthless prioritization is essential. Cut P1 items before cutting the core loop, evaluation, or judge harness.
+> **Note:** This is an accelerated plan reflecting the ~5 days remaining before the September 14 deadline. Ruthless prioritization is essential. Cut P1 items before cutting the core loop, evaluation, or evaluation harness.
 
 ### Day 1 — Telemetry foundation and deterministic engine
 
@@ -1404,7 +1404,7 @@ perishlock/
 - Deploy to AgentCore Runtime (or confirm local execution).
 - Test the full tool loop end-to-end with one scenario.
 
-### Day 3 — Workflow, approval, and judge harness
+### Day 3 — Workflow, approval, and evaluation harness
 
 - Build Step Functions incident workflow.
 - Implement the human-approval callback (server-side token, one-time nonce, expiry).
@@ -1429,10 +1429,10 @@ perishlock/
 
 ### Day 5 — Documentation, polish, freeze, and submit
 
-- Finish README with "Judge it in 90 seconds" walkthrough.
+- Finish README with "Evaluate in 90 seconds" walkthrough.
 - Finish architecture diagram (exportable PNG/SVG).
 - Finish decision-rights matrix in the UI.
-- Test accessibility and signed-out judge path.
+- Test accessibility and signed-out evaluation path.
 - Draft submission description for Devpost.
 - Draft optional builder.aws post.
 - Record a backup 5-minute demo video.
@@ -1559,7 +1559,7 @@ The hardest design problem was separating helpful autonomy from unsafe authority
 
 ### What we learned
 
-High-stakes agents are strongest when models organize evidence, interpret messy real-world text, and explain options while deterministic systems and humans retain decision rights. Physical-world resilience requires handling missing, delayed and contradictory data — not merely producing a persuasive answer. And judges need to see the product working in 90 seconds, not spend 30 minutes configuring AWS resources.
+High-stakes agents are strongest when models organize evidence, interpret messy real-world text, and explain options while deterministic systems and humans retain decision rights. Physical-world resilience requires handling missing, delayed and contradictory data — not merely producing a persuasive answer. And evaluators need to see the product working in 90 seconds, not spend 30 minutes configuring AWS resources.
 
 ### What is next
 
@@ -1574,7 +1574,7 @@ Remove every accomplishment that is not implemented.
 Recommended README order:
 
 1. One-line promise and screenshot of Mission Control.
-2. `Judge it in 90 seconds` walkthrough (with hosted URL and simulate button).
+2. `Evaluate in 90 seconds` walkthrough (with hosted URL and simulate button).
 3. Community problem: fresh tomatoes, 12 families, 1,200 kg, $3,400 at risk.
 4. Decision-rights matrix.
 5. Architecture diagram.
@@ -1615,7 +1615,7 @@ Recommended README order:
 - Deterministic rules surround the model.
 - **Semi-structured partner-note interpretation proves the LLM is essential, not decorative.**
 - Observability and trajectory evaluations prove behavior.
-- **Embedded trace viewer lets judges verify without CloudWatch access.**
+- **Embedded trace viewer lets reviewers verify without CloudWatch access.**
 
 ### Design
 
@@ -1669,11 +1669,11 @@ Recommended README order:
 
 - [ ] Public repository.
 - [ ] MIT or Apache license visible at the top level/About section.
-- [ ] Complete README with "Judge it in 90 seconds" walkthrough.
+- [ ] Complete README with "Evaluate in 90 seconds" walkthrough.
 - [ ] Architecture diagram.
 - [ ] Public YouTube/Vimeo video no longer than five minutes.
 - [ ] AWS Builder ID.
-- [ ] Live demo URL or frictionless judge harness.
+- [ ] Live demo URL or frictionless evaluation harness.
 
 ### Safety and claims
 
@@ -1718,7 +1718,7 @@ Recommended README order:
 
 ## 28. Definition of done
 
-PerishLock is competition-ready when a skeptical judge can:
+PerishLock is evaluation-ready when a skeptical reviewer can:
 
 1. Click a single "Simulate Outage" button on a hosted URL.
 2. Watch synthetic sensor telemetry enter AWS IoT Core showing Roma tomatoes warming from 12°C to 19°C.
@@ -1733,7 +1733,7 @@ PerishLock is competition-ready when a skeptical judge can:
 11. Review the committed evaluation report showing 14/14 scenarios passed, including prompt-injection resistance.
 12. Confirm through traces and evaluations that the agent never decided food safety, legal coverage or real payment.
 
-**All of the above in under 90 seconds of active judge time.**
+**All of the above in under 90 seconds of active evaluation time.**
 
 That is the PerishLock submission with the strongest balance of impact, originality and trust.
 

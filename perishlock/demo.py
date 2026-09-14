@@ -1,4 +1,4 @@
-"""PerishLock Interactive Judge Speedrun Demo.
+"""PerishLock Interactive Offline Simulation Demo.
 
 Run with:
     python -m perishlock.demo
