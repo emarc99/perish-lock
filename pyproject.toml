@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "perishlock"
+version = "0.1.0"
+description = "Autonomous Cold-Chain Disruption Defense & Parametric Salvage Protocol for Agricultural Cooperatives"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "PerishLock Team", email = "team@perishlock.network" }
+]
+keywords = [
+    "aws",
+    "strands-agents",
+    "bedrock-agentcore",
+    "cold-chain",
+    "agriculture",
+    "parametric-insurance",
+    "cooperative",
+    "food-waste"
+]
+dependencies = [
+    "pydantic>=2.0.0",
+    "strands-agents>=1.42.0",
+    "bedrock-agentcore>=1.13.0",
+    "boto3>=1.34.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "rich>=13.0.0"
+]
+
+[project.optional-dependencies]
+evals = [
+    "strands-agents-evals>=1.2.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0"
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --import-mode=importlib"
+testpaths = ["evals", "tests"]
+pythonpath = ["."]
