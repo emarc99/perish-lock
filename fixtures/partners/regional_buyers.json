@@ -1,0 +1,78 @@
+[
+  {
+    "partner_id": "PARTNER-PROC-01",
+    "name": "Valley Fresh Cannery & Paste",
+    "category": "industrial_processor",
+    "contact": {
+      "person": "Carlos Mendez",
+      "phone": "+1-555-019-3321",
+      "email": "intake@valleyfreshpaste.com"
+    },
+    "location": {
+      "address": "840 Industrial Parkway, Salinas",
+      "distance_km": 28.4,
+      "transit_time_minutes": 35
+    },
+    "max_capacity_kg": 8000.0,
+    "offered_price_per_kg": 0.38,
+    "eligible_grades": ["USDA_US1", "USDA_COMBINATION", "USDA_US2", "PROCESSING_GRADE"],
+    "intake_notes": "Receiving dock B is running day shift only today until 18:00 due to planned boiler maintenance. Accepts processing grade or ripe Roma with minor softness, but strictly refuses any lots with visible rot or fungal decay exceeding 2%. Electric pallet jacks and forklift on site. Driver must sign QA weight ticket."
+  },
+  {
+    "partner_id": "PARTNER-BANK-02",
+    "name": "Hope Community Food Rescue",
+    "category": "food_rescue_bank",
+    "contact": {
+      "person": "Elena Vance",
+      "phone": "+1-555-014-8890",
+      "email": "dispatch@hopefoodrescue.org"
+    },
+    "location": {
+      "address": "120 Mission Street, Chualar",
+      "distance_km": 14.2,
+      "transit_time_minutes": 18
+    },
+    "max_capacity_kg": 4500.0,
+    "offered_price_per_kg": 0.15,
+    "eligible_grades": ["USDA_US1", "USDA_COMBINATION"],
+    "intake_notes": "Urgent need for fresh produce. Can accept drop-off within 2 hours. Tomatoes must be edible fresh table grade or mild softness for same-day evening family box distribution. Cold holding capacity is limited to 5 metric tons; volunteer sorting crew on duty 13:00 to 17:00 only. Tax deductible donation receipt issued immediately upon check-in."
+  },
+  {
+    "partner_id": "PARTNER-MKT-03",
+    "name": "Metro Wholesale Produce Terminal",
+    "category": "secondary_wholesale_market",
+    "contact": {
+      "person": "David Kroll",
+      "phone": "+1-555-012-7744",
+      "email": "dock4@metrowholesaleproduce.com"
+    },
+    "location": {
+      "address": "400 Terminal Way, San Jose",
+      "distance_km": 62.0,
+      "transit_time_minutes": 75
+    },
+    "max_capacity_kg": 12000.0,
+    "offered_price_per_kg": 0.48,
+    "eligible_grades": ["USDA_US1"],
+    "intake_notes": "Dock 4 receiving is open 24/7. High price offered, BUT reefer transport temperature log required on arrival. Terminal inspector will immediately reject the load if tomato core temperature exceeds 15.5C or if firm-ripe status has degraded to soft/overripe. Deducts a flat $150.00 pallet unloading fee from net payout."
+  },
+  {
+    "partner_id": "PARTNER-DEHY-04",
+    "name": "SunCoast Dehydrators & Sun-Dried Co.",
+    "category": "specialty_processor",
+    "contact": {
+      "person": "Marcus Brody",
+      "phone": "+1-555-017-6611",
+      "email": "procurement@suncoastdehy.com"
+    },
+    "location": {
+      "address": "2100 Valley Vista Road, Greenfield",
+      "distance_km": 44.5,
+      "transit_time_minutes": 50
+    },
+    "max_capacity_kg": 6000.0,
+    "offered_price_per_kg": 0.33,
+    "eligible_grades": ["USDA_US1", "USDA_COMBINATION", "USDA_US2", "PROCESSING_GRADE"],
+    "intake_notes": "Intake bay open until 20:00. Specifically seeks high-solids Roma tomatoes for drying lines. Tolerates minor skin cracks, light bruising, and ripe red fruit provided fruit is processed within 6 hours. Fast turn-around unloading."
+  }
+]

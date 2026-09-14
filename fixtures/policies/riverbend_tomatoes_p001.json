@@ -1,0 +1,49 @@
+{
+  "policy_id": "POL-RB-TOM-2026-001",
+  "policy_holder": "Riverbend Smallholder Farmer Cooperative",
+  "facility_id": "FAC-RB-01",
+  "chamber_id": "CHAMBER-A",
+  "location": {
+    "name": "Riverbend Central Cold Store",
+    "latitude": 36.6777,
+    "longitude": -121.6555,
+    "region": "Salinas Agricultural Corridor"
+  },
+  "commodity": {
+    "name": "Fresh Roma Tomatoes",
+    "scientific_name": "Solanum lycopersicum",
+    "harvest_date": "2026-09-12T06:00:00Z",
+    "intake_date": "2026-09-12T14:30:00Z",
+    "lot_number": "LOT-TOM-202609-044",
+    "quantity_kg": 14200.0,
+    "crate_count": 710,
+    "crate_weight_kg": 20.0,
+    "initial_grade": "USDA_US1",
+    "base_market_price_per_kg": 0.65,
+    "total_insured_value_usd": 9230.00
+  },
+  "storage_thresholds": {
+    "optimal_min_temp_c": 10.0,
+    "optimal_max_temp_c": 12.5,
+    "chilling_injury_threshold_c": 10.0,
+    "accelerated_rot_threshold_c": 13.0,
+    "critical_failure_threshold_c": 18.0,
+    "optimal_min_rh_pct": 85.0,
+    "optimal_max_rh_pct": 95.0
+  },
+  "parametric_trigger": {
+    "breach_metric": "temperature_celsius",
+    "threshold_value": 13.0,
+    "comparison": "greater_than",
+    "sustained_duration_minutes": 240,
+    "dual_sensor_max_drift_c": 1.5,
+    "coverage_cap_usd": 7500.00,
+    "deductible_pct": 5.0
+  },
+  "coordinator": {
+    "name": "Amara Okafor",
+    "role": "Cooperative Cold-Room Operations Lead",
+    "email": "amara.okafor@riverbend.coop",
+    "phone": "+1-555-018-9241"
+  }
+}
