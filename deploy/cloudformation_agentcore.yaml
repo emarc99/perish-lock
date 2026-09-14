@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  PerishLock — Amazon Bedrock AgentCore & Cold-Chain Defense Infrastructure.
+  Provisions Bedrock AgentCore Runtime, AgentCore Memory, Gateway,
+  S3 Evidence Vault with Object Lock, and Mission Control Service.
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Default: prod
+    Description: Environment stage name (prod/staging/dev)
+  BedrockModelId:
+    Type: String
+    Default: amazon.nova-pro-v1:0
+    Description: Foundation Model ID hosted via Amazon Bedrock (Nova Pro or Claude 3.5 Sonnet)
+
+Resources:
+  # ─── 1. S3 IMMUTABLE EVIDENCE VAULT ──────────────────────────────────────────
+  EvidenceVaultBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'perishlock-evidence-vault-${AWS::AccountId}-${AWS::Region}'
+      ObjectLockEnabled: true
+      ObjectLockConfiguration:
+        ObjectLockRule:
+          DefaultRetention:
+            Mode: COMPLIANCE
+            Days: 365
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  # ─── 2. BEDROCK AGENT EXECUTION IAM ROLE ──────────────────────────────────────
+  AgentCoreExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'PerishLock-AgentCoreExecutionRole-${EnvironmentName}'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - bedrock.amazonaws.com
+                - bedrock-agentcore.amazonaws.com
+                - ecs-tasks.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: BedrockInvokeModelAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'bedrock:InvokeModel'
+                  - 'bedrock:InvokeModelWithResponseStream'
+                Resource:
+                  - !Sub 'arn:aws:bedrock:${AWS::Region}::foundation-model/${BedrockModelId}'
+                  - !Sub 'arn:aws:bedrock:${AWS::Region}::foundation-model/anthropic.claude-3-5-sonnet*'
+        - PolicyName: AgentCoreRuntimePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'bedrock-agentcore:*'
+                  - 'bedrock-agentcore-control:*'
+                Resource: '*'
+        - PolicyName: EvidenceVaultWriteAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:PutObject'
+                  - 's3:GetObject'
+                  - 's3:PutObjectRetention'
+                  - 's3:ListBucket'
+                Resource:
+                  - !GetAtt EvidenceVaultBucket.Arn
+                  - !Sub '${EvidenceVaultBucket.Arn}/*'
+
+  # ─── 3. NOTIFICATION TOPIC FOR HUMAN COORDINATOR ────────────────────────────
+  CoordinatorAlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub 'perishlock-coordinator-alerts-${EnvironmentName}'
+      DisplayName: 'PerishLock Mission Control Emergency Dispatch'
+
+Outputs:
+  EvidenceVaultBucketName:
+    Description: Immutable S3 Evidence Vault with Merkle root object locking
+    Value: !Ref EvidenceVaultBucket
+  AgentCoreRoleArn:
+    Description: IAM Role for Bedrock AgentCore execution
+    Value: !GetAtt AgentCoreExecutionRole.Arn
+  CoordinatorAlertTopicArn:
+    Description: SNS Topic for real-time Human Coordinator authorization alerts
+    Value: !Ref CoordinatorAlertTopic
+  DeploymentInstructions:
+    Description: CLI command to initiate Bedrock AgentCore agent deployment
+    Value: python -m deploy.agentcore --region us-east-1
