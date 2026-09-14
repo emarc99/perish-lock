@@ -1,0 +1,38 @@
+{
+  "manifest_id": "MAN-INC-TEST-E2E-001-aa49186b",
+  "incident_id": "INC-TEST-E2E-001",
+  "policy_id": "POL-RB-TOM-2026-001",
+  "created_at": "2026-09-14T15:39:05.673731",
+  "telemetry_hash": "17ee9028857b6d43552934cddb4ca915b84f8f6b4ff3a3ed6a374dfc7ae9dd7b",
+  "trigger_eval_hash": "9d4c3db00403b18f0845f7472492f4c295ae9f5f8d3902140e9ed5804a271129",
+  "partner_intake_hash": "0a4d069c77baf7a84ed46ad38bf8ce3f2d323a9856b39c98adb66c9da9eff328",
+  "agent_trace_hash": "d09a94ade1710809c6b0022a80c70ab9f21cfd83f0d8ded6a169ca6a828e8a57",
+  "merkle_root_hash": "aa49186b68863ddb79f7450087a2dcde8a9a8fe627d10d5dc4c1018daab34423",
+  "components": [
+    {
+      "name": "telemetry_timeseries",
+      "item_count": 40,
+      "sha256_hash": "17ee9028857b6d43552934cddb4ca915b84f8f6b4ff3a3ed6a374dfc7ae9dd7b",
+      "metadata": {}
+    },
+    {
+      "name": "trigger_evaluation",
+      "item_count": 1,
+      "sha256_hash": "9d4c3db00403b18f0845f7472492f4c295ae9f5f8d3902140e9ed5804a271129",
+      "metadata": {}
+    },
+    {
+      "name": "partner_intake_and_notes",
+      "item_count": 4,
+      "sha256_hash": "0a4d069c77baf7a84ed46ad38bf8ce3f2d323a9856b39c98adb66c9da9eff328",
+      "metadata": {}
+    },
+    {
+      "name": "agent_reasoning_trace",
+      "item_count": 1,
+      "sha256_hash": "d09a94ade1710809c6b0022a80c70ab9f21cfd83f0d8ded6a169ca6a828e8a57",
+      "metadata": {}
+    }
+  ],
+  "sealed_by": "perishlock.evidence.sealer.v1"
+}
