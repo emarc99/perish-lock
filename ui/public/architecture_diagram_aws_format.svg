@@ -1,0 +1,287 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" width="100%" height="100%" style="background:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <style>
+      .box-header { font-size: 15px; font-weight: 700; fill: #232f3e; }
+      .sub-text { font-size: 11px; fill: #545b64; }
+      .label-text { font-size: 12px; font-weight: 600; fill: #16191f; }
+      .arrow-text { font-size: 11px; font-weight: 500; fill: #16191f; }
+      .tag-text { font-size: 10px; font-weight: 600; fill: #0073bb; }
+      .code-text { font-family: 'SFMono-Regular',Consolas,'Liberation Mono',Menlo,Courier,monospace; font-size: 11px; }
+    </style>
+    
+    <!-- Marker for solid arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#16191f"/>
+    </marker>
+    <!-- Marker for dashed arrows -->
+    <marker id="arrow-dashed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#545b64"/>
+    </marker>
+    <!-- Marker for teal/bedrock arrows -->
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#00a4a6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1280" height="820" fill="#ffffff"/>
+
+  <!-- ========================================== -->
+  <!-- TOP CONTAINER: LOCAL ENVIRONMENT (STRANDS) -->
+  <!-- ========================================== -->
+  <g id="top-container">
+    <!-- Outer Box -->
+    <rect x="230" y="25" width="1020" height="420" rx="3" fill="#ffffff" stroke="#16191f" stroke-width="2"/>
+    
+    <!-- Laptop Icon Header -->
+    <rect x="230" y="25" width="38" height="38" fill="#16191f"/>
+    <path d="M 239 37 h 20 v 13 h -20 z M 235 52 h 28 v 3 h -28 z" fill="#ffffff"/>
+    <text x="280" y="49" class="box-header">Local environment (Strands Agents SDK Harness)</text>
+
+    <!-- Actor: Customer / Coordinator (Far Left outside or edge) -->
+    <!-- We place the Coordinator at x=60 -->
+    <g transform="translate(60, 160)">
+      <!-- Stick Figure / User Icon -->
+      <circle cx="45" cy="20" r="14" fill="none" stroke="#16191f" stroke-width="2"/>
+      <path d="M 45 34 v 30 M 25 46 h 40 M 45 64 l -15 30 M 45 64 l 15 30" fill="none" stroke="#16191f" stroke-width="2"/>
+      <text x="45" y="112" font-size="13" font-weight="700" fill="#16191f" text-anchor="middle">Coordinator /</text>
+      <text x="45" y="128" font-size="12" font-weight="600" fill="#545b64" text-anchor="middle">Cold-Room Operator</text>
+      <rect x="-10" y="136" width="110" height="20" rx="4" fill="#f2f3f3"/>
+      <text x="45" y="150" font-size="10" fill="#545b64" text-anchor="middle">Next.js UI / Webhooks</text>
+    </g>
+
+    <!-- Arrows between Coordinator and Strands Agent -->
+    <!-- Top arrow: User question / Telemetry Breach -->
+    <path d="M 175 195 L 340 195" fill="none" stroke="#16191f" stroke-width="1.8" marker-end="url(#arrow)"/>
+    <text x="257" y="187" class="arrow-text" text-anchor="middle">Telemetry breach alert / prompt</text>
+
+    <!-- Bottom arrow: Agent response / Decision options -->
+    <path d="M 340 225 L 175 225" fill="none" stroke="#16191f" stroke-width="1.8" marker-end="url(#arrow)"/>
+    <text x="257" y="243" class="arrow-text" text-anchor="middle">Agent response &amp; salvage options</text>
+
+    <!-- STRANDS AGENT CORE -->
+    <g transform="translate(355, 165)">
+      <!-- Hexagonal / Agent Icon -->
+      <polygon points="45,0 80,20 80,60 45,80 10,60 10,20" fill="#f8f9fa" stroke="#16191f" stroke-width="2"/>
+      <!-- Tools / Wrench Cross Icon inside -->
+      <path d="M 32 30 l 26 26 M 58 30 l -26 26" stroke="#16191f" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="32" cy="30" r="4" fill="#16191f"/>
+      <circle cx="58" cy="30" r="4" fill="#16191f"/>
+      <circle cx="32" cy="56" r="4" fill="#16191f"/>
+      <circle cx="58" cy="56" r="4" fill="#16191f"/>
+
+      <!-- Agent Label -->
+      <text x="45" y="105" font-size="13" font-weight="700" fill="#16191f" text-anchor="middle">PerishLock Coordinator</text>
+      <text x="45" y="122" font-size="12" font-weight="600" fill="#0073bb" text-anchor="middle">Strands Agent</text>
+      
+      <!-- Hooks badge -->
+      <rect x="-15" y="132" width="120" height="18" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+      <text x="45" y="145" font-size="9" font-weight="600" fill="#475569" text-anchor="middle">Hooks + Steering Gates</text>
+    </g>
+
+    <!-- Arrow from Agent to Tools: "task" (Bidirectional) -->
+    <path d="M 455 205 L 565 205" fill="none" stroke="#16191f" stroke-width="1.8" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+    <text x="510" y="195" class="arrow-text" text-anchor="middle">task</text>
+
+    <!-- TOOLS STACK (Right of Agent) -->
+    <g transform="translate(575, 75)">
+      <!-- Tool 1: Sensor & Drift Check -->
+      <rect x="0" y="0" width="260" height="38" fill="#ffffff" stroke="#16191f" stroke-width="1.5"/>
+      <text x="14" y="23" class="label-text">Tool 1: get_sensor_evidence</text>
+      <text x="210" y="23" font-size="9" fill="#10b981" font-weight="700">|ΔT|≤1.5°C</text>
+
+      <!-- Tool 2: Route Matrix OSRM API -->
+      <rect x="0" y="50" width="260" height="38" fill="#ffffff" stroke="#16191f" stroke-width="1.5"/>
+      <text x="14" y="73" class="label-text">Tool 2: calculate_route_matrix</text>
+      <text x="220" y="73" font-size="9" fill="#0284c7" font-weight="700">OSRM</text>
+
+      <!-- Tool 3: Prepare Salvage Options -->
+      <rect x="0" y="100" width="260" height="38" fill="#ffffff" stroke="#16191f" stroke-width="1.5"/>
+      <text x="14" y="123" class="label-text">Tool 3: prepare_response_options</text>
+
+      <!-- Tool 4: Cryptographic Seal -->
+      <rect x="0" y="150" width="260" height="38" fill="#ffffff" stroke="#16191f" stroke-width="1.5"/>
+      <text x="14" y="173" class="label-text">Tool 4: seal_incident_packet</text>
+      <text x="212" y="173" font-size="9" fill="#8b5cf6" font-weight="700">Merkle</text>
+
+      <!-- Tool 5: Dispatch & Claim Notice -->
+      <rect x="0" y="200" width="260" height="38" fill="#ffffff" stroke="#16191f" stroke-width="1.5"/>
+      <text x="14" y="223" class="label-text">Tool 5: request_approval &amp; dispatch</text>
+      <text x="215" y="223" font-size="9" fill="#f59e0b" font-weight="700">HITL</text>
+    </g>
+
+    <!-- External Integration: OSRM Routing Cloud -->
+    <g transform="translate(940, 110)">
+      <path d="M 845 140 L 925 140" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)" marker-start="url(#arrow-dashed)"/>
+      <ellipse cx="40" cy="20" rx="32" ry="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+      <text x="40" y="18" font-size="11" font-weight="700" fill="#0369a1" text-anchor="middle">OSRM API</text>
+      <text x="40" y="30" font-size="9" fill="#0284c7" text-anchor="middle">Route Matrix</text>
+    </g>
+
+    <!-- Local Files / Skills Data Box (Under Tools) -->
+    <g transform="translate(575, 335)">
+      <!-- Bidirectional arrow between Tool 3 and Local Data Box -->
+      <path d="M 130 -15 L 130 0" fill="none" stroke="#16191f" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+
+      <rect x="0" y="0" width="260" height="90" fill="#fafafa" stroke="#16191f" stroke-width="1.5"/>
+      
+      <!-- Doc 1: SKILL.md -->
+      <g transform="translate(25, 18)">
+        <rect x="0" y="0" width="30" height="40" rx="2" fill="#059669"/>
+        <path d="M 6 10 h 18 M 6 18 h 18 M 6 26 h 12" stroke="#ffffff" stroke-width="2"/>
+        <text x="15" y="55" font-size="10" font-weight="600" fill="#16191f" text-anchor="middle">SKILL.md</text>
+        <text x="15" y="66" font-size="8" fill="#545b64" text-anchor="middle">Decay Physics</text>
+      </g>
+
+      <!-- Doc 2: Merkle Proof Manifest -->
+      <g transform="translate(110, 18)">
+        <rect x="0" y="0" width="30" height="40" rx="2" fill="#2563eb"/>
+        <circle cx="15" cy="18" r="7" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <circle cx="15" cy="18" r="3" fill="#ffffff"/>
+        <text x="15" y="55" font-size="10" font-weight="600" fill="#16191f" text-anchor="middle">Evidence.json</text>
+        <text x="15" y="66" font-size="8" fill="#545b64" text-anchor="middle">SHA-256 Tree</text>
+      </g>
+
+      <!-- Doc 3: Sensor Data -->
+      <g transform="translate(195, 18)">
+        <rect x="0" y="0" width="30" height="40" rx="2" fill="#d97706"/>
+        <path d="M 6 28 l 6 -12 l 6 6 l 6 -10" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <text x="15" y="55" font-size="10" font-weight="600" fill="#16191f" text-anchor="middle">Telemetry</text>
+        <text x="15" y="66" font-size="8" fill="#545b64" text-anchor="middle">Dual-Probe Log</text>
+      </g>
+    </g>
+
+    <!-- retrieve() method block below Agent -->
+    <g transform="translate(345, 380)">
+      <path d="M 55 -60 L 55 -5" fill="none" stroke="#16191f" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <text x="40" y="-30" class="arrow-text" text-anchor="end">task</text>
+      
+      <rect x="0" y="0" width="110" height="34" fill="#e5e7eb" stroke="#16191f" stroke-width="1.5"/>
+      <text x="55" y="21" font-size="12" font-weight="600" fill="#16191f" text-anchor="middle">retrieve()</text>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- BOTTOM CONTAINER: AWS CLOUD                -->
+  <!-- ========================================== -->
+  <g id="bottom-container">
+    <!-- Outer Box -->
+    <rect x="230" y="475" width="1020" height="320" rx="3" fill="#ffffff" stroke="#16191f" stroke-width="2"/>
+
+    <!-- AWS Logo Header -->
+    <rect x="230" y="475" width="46" height="32" fill="#232f3e"/>
+    <text x="253" y="496" font-size="13" font-weight="800" fill="#ff9900" text-anchor="middle">aws</text>
+    <text x="288" y="497" class="box-header">AWS Cloud</text>
+
+    <!-- Vertical dashed connection 1: Invokes LLM and processes outputs -->
+    <!-- From Agent (x=400, y=340) down into Bedrock LLMs -->
+    <path d="M 400 320 L 400 455 L 530 455 L 530 525" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+    <rect x="365" y="445" width="200" height="18" fill="#ffffff"/>
+    <text x="465" y="458" font-size="11" fill="#545b64" text-anchor="middle">Invokes LLM &amp; processes outputs</text>
+
+    <!-- Vertical dashed connection 2: FM Reasoning from Tools to Nova -->
+    <path d="M 975 240 L 975 525" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+    <path d="M 990 240 L 990 525" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+    <rect x="945" y="375" width="90" height="20" fill="#ffffff"/>
+    <text x="990" y="389" font-size="11" font-weight="600" fill="#16191f" text-anchor="middle">FM Reasoning</text>
+
+    <!-- Top Row of AWS Cloud: Bedrock LLMs + Amazon Nova -->
+    <g transform="translate(680, 520)">
+      <!-- Bedrock Service Icon Box -->
+      <g transform="translate(0, 0)">
+        <rect x="0" y="0" width="60" height="60" rx="6" fill="#00a4a6"/>
+        <!-- Neural network / AI chip icon -->
+        <circle cx="30" cy="30" r="10" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+        <path d="M 30 14 v 6 M 30 40 v 6 M 14 30 h 6 M 40 30 h 6" stroke="#ffffff" stroke-width="2.5"/>
+        <circle cx="14" cy="14" r="3" fill="#ffffff"/>
+        <circle cx="46" cy="14" r="3" fill="#ffffff"/>
+        <circle cx="14" cy="46" r="3" fill="#ffffff"/>
+        <circle cx="46" cy="46" r="3" fill="#ffffff"/>
+        <text x="30" y="76" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">Amazon Bedrock</text>
+        <text x="30" y="90" font-size="11" fill="#545b64" text-anchor="middle">Managed Model API</text>
+      </g>
+
+      <!-- Arrow to Nova -->
+      <path d="M 80 30 L 230 30" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+
+      <!-- Amazon Nova Pro / Claude 3.5 Sonnet Box -->
+      <g transform="translate(250, 0)">
+        <rect x="0" y="0" width="60" height="60" rx="6" fill="#00a4a6"/>
+        <path d="M 20 20 h 20 v 20 h -20 z M 26 26 h 8 v 8 h -8 z" fill="#ffffff"/>
+        <text x="30" y="76" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">Amazon Nova Pro /</text>
+        <text x="30" y="90" font-size="11" font-weight="600" fill="#00a4a6" text-anchor="middle">Claude 3.5 Sonnet</text>
+      </g>
+    </g>
+
+    <!-- Bottom Row of AWS Cloud: AgentCore Memory + Gateway + S3 Vault -->
+    <!-- Connection from retrieve() down to AgentCore Memory -->
+    <path d="M 400 414 L 400 660 L 440 660" fill="none" stroke="#16191f" stroke-width="1.8" marker-end="url(#arrow)"/>
+    
+    <!-- Returning context arrow back UP to Strands Agent -->
+    <path d="M 460 625 L 460 310 L 445 310" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+    <text x="475" y="475" font-size="11" fill="#545b64">Context</text>
+
+    <!-- Retrieval & Memory Subsystem -->
+    <g transform="translate(460, 630)">
+      <!-- Bedrock AgentCore Memory -->
+      <g transform="translate(0, 0)">
+        <!-- Book / Knowledge / Memory Icon -->
+        <rect x="0" y="0" width="55" height="55" rx="5" fill="#f8fafc" stroke="#00a4a6" stroke-width="2"/>
+        <path d="M 12 16 h 14 v 24 h -14 z M 29 16 h 14 v 24 h -14 z" fill="none" stroke="#00a4a6" stroke-width="2"/>
+        <text x="27" y="72" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">Bedrock AgentCore</text>
+        <text x="27" y="86" font-size="11" font-weight="600" fill="#00a4a6" text-anchor="middle">Memory &amp; Gateway</text>
+        <text x="27" y="98" font-size="9" fill="#545b64" text-anchor="middle">arn:aws:bedrock-agentcore</text>
+      </g>
+
+      <!-- Arrow: Search on / Sync -->
+      <path d="M 75 22 L 185 22" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+      <text x="130" y="15" class="arrow-text" text-anchor="middle">Sync state</text>
+      <path d="M 185 35 L 75 35" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+      <text x="130" y="48" class="arrow-text" text-anchor="middle">Historical SLA</text>
+
+      <!-- DynamoDB / OpenSearch Index -->
+      <g transform="translate(200, 0)">
+        <rect x="0" y="0" width="55" height="55" rx="5" fill="#8c30e8"/>
+        <!-- DB / Search bars -->
+        <ellipse cx="27" cy="18" rx="16" ry="6" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <path d="M 11 18 v 12 c 0 3 7 6 16 6 s 16 -3 16 -6 v -12" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <path d="M 11 30 v 12 c 0 3 7 6 16 6 s 16 -3 16 -6 v -12" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <text x="27" y="72" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">Amazon DynamoDB</text>
+        <text x="27" y="86" font-size="11" fill="#545b64" text-anchor="middle">State Ledger &amp; Nonces</text>
+      </g>
+
+      <!-- Arrow to S3 -->
+      <path d="M 275 22 L 385 22" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+      <text x="330" y="15" class="arrow-text" text-anchor="middle">Connects to</text>
+      <path d="M 385 35 L 275 35" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+      <text x="330" y="48" class="arrow-text" text-anchor="middle">feeds audit</text>
+
+      <!-- S3 Bucket (Green/Bucket Icon) -->
+      <g transform="translate(400, 0)">
+        <rect x="0" y="0" width="55" height="55" rx="5" fill="#7aa116"/>
+        <!-- S3 Bucket Icon -->
+        <path d="M 14 18 h 27 l -4 24 h -19 z" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+        <path d="M 14 18 c 0 -4 6 -6 13.5 -6 s 13.5 2 13.5 6" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <text x="27" y="72" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">Amazon S3 Bucket</text>
+        <text x="27" y="86" font-size="11" font-weight="600" fill="#7aa116" text-anchor="middle">Object Lock (WORM)</text>
+      </g>
+
+      <!-- Arrow to Claim & Evidence Files -->
+      <path d="M 475 28 L 545 28" fill="none" stroke="#545b64" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-dashed)"/>
+
+      <!-- Immutable Claims & Audit Files -->
+      <g transform="translate(560, 0)">
+        <rect x="0" y="0" width="55" height="55" rx="5" fill="#ffffff" stroke="#16191f" stroke-width="1.5"/>
+        <!-- Shield / Lock icon -->
+        <path d="M 27 15 l 12 5 v 10 c 0 8 -12 14 -12 14 s -12 -6 -12 -14 v -10 z" fill="none" stroke="#16191f" stroke-width="2"/>
+        <text x="27" y="72" font-size="12" font-weight="700" fill="#16191f" text-anchor="middle">Insurance Evidence</text>
+        <text x="27" y="86" font-size="11" fill="#545b64" text-anchor="middle">Sealed Claim Packets</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Legend / Verification Badge -->
+  <g transform="translate(230, 800)">
+    <text x="0" y="0" font-size="11" fill="#71717a">Aligned with official AWS Agents for Humans Architecture Specification • Apache 2.0 Open Source</text>
+  </g>
+</svg>
