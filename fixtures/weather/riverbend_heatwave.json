@@ -1,0 +1,19 @@
+{
+  "location": "Salinas Agricultural Corridor - Riverbend Facility",
+  "timestamp": "2026-09-14T14:00:00Z",
+  "ambient_temperature_c": 35.8,
+  "relative_humidity_pct": 28.0,
+  "heat_index_c": 38.2,
+  "solar_radiation_w_m2": 890.0,
+  "grid_condition": {
+    "grid_status": "FLEX_ALERT_STAGE_2",
+    "substation_id": "SUB-SALINAS-04",
+    "voltage_fluctuation_pct": -8.5,
+    "transformer_ambient_temp_c": 41.2
+  },
+  "logistics_impact": {
+    "unrefrigerated_shelf_life_hours": 2.5,
+    "reefer_requirement": "MANDATORY_REEFER_TRANSIT",
+    "core_heating_rate_c_per_hour": 1.8
+  }
+}

@@ -1,0 +1,194 @@
+[
+  {
+    "timestamp": "2026-09-14T06:00:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": 11.3,
+      "relative_humidity_pct": 91.5,
+      "battery_pct": 93
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T06:15:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": 11.3,
+      "relative_humidity_pct": 91.5,
+      "battery_pct": 93
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T06:30:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": 11.3,
+      "relative_humidity_pct": 91.5,
+      "battery_pct": 93
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T06:45:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": 11.3,
+      "relative_humidity_pct": 91.5,
+      "battery_pct": 93
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T07:00:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": -999.0,
+      "relative_humidity_pct": 0.0,
+      "battery_pct": 0
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T07:15:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": -999.0,
+      "relative_humidity_pct": 0.0,
+      "battery_pct": 0
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T07:30:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": -999.0,
+      "relative_humidity_pct": 0.0,
+      "battery_pct": 0
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T07:45:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": -999.0,
+      "relative_humidity_pct": 0.0,
+      "battery_pct": 0
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T08:00:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": -999.0,
+      "relative_humidity_pct": 0.0,
+      "battery_pct": 0
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T08:15:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": -999.0,
+      "relative_humidity_pct": 0.0,
+      "battery_pct": 0
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T08:30:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": -999.0,
+      "relative_humidity_pct": 0.0,
+      "battery_pct": 0
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  },
+  {
+    "timestamp": "2026-09-14T08:45:00Z",
+    "chamber_id": "CHAMBER-A",
+    "sensor_1": {
+      "temperature_c": 11.2,
+      "relative_humidity_pct": 92.0,
+      "battery_pct": 95
+    },
+    "sensor_2": {
+      "temperature_c": -999.0,
+      "relative_humidity_pct": 0.0,
+      "battery_pct": 0
+    },
+    "grid_powered": true,
+    "compressor_active": true
+  }
+]
